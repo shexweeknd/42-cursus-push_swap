@@ -1,11 +1,11 @@
-NAME = server client
+NAME = push_swap
 
 FLAGS = -Wall -Wextra -Werror
 
 GARBAGE = *.o */*.o *.gch */*.gch *.out */*.out *.a
 
-SRCS = server.c \
-		client.c
+SRCS = push_swap.c \
+		checker.c
 
 # Colors variables
 OBJS = $(SRCS:.c=.o)
@@ -21,7 +21,7 @@ END = \033[0m
 # Rules
 .c.o:
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
-	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft
+	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I utils/ft_free
 
 all: $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
@@ -29,8 +29,7 @@ all: $(OBJS)
 	make all clean &&\
 	mv ./libftprintf.a ../ &&\
 	cd .. &&\
-	cc $(FLAGS) -g server.o -o server -L. -lftprintf
-	cc $(FLAGS) -g client.o -o client -L. -lftprintf
+	cc $(FLAGS) -g $(OBJS) -o $(NAME) -L. -lftprintf
 	make clean
 
 debug: re
