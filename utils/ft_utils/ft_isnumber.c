@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/24 07:17:48 by hramaros         ###   ########.fr       */
+/*   Created: 2024/05/24 07:38:29 by hramaros          #+#    #+#             */
+/*   Updated: 2024/05/24 07:42:49 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "../utils.h"
+#include "libft.h"
 
-# include <stddef.h>
-# include <stdlib.h>
-
-#endif
+int	ft_isnumber(const char *str)
+{
+	if ((*str == '-') || (*str == '+'))
+		str++;
+	while (*str)
+		if (!ft_isdigit(*str))
+			return (0);
+	return (2048);
+}

@@ -21,7 +21,7 @@ END = \033[0m
 # Rules
 .c.o:
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
-	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I utils/ft_free
+	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I utils
 
 all: $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
