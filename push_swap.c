@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/24 07:44:35 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/05/27 07:42:42 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "push_swap.h"
 #include "utils.h"
 
+/**
+ * @brief compte la taille du tableau de donne
+ *
+ * @param list
+ * @return size_t
+ * @date 2024-05-27
+ */
 size_t	ft_contentlen(void **list)
 {
 	size_t	len;
@@ -25,6 +32,15 @@ size_t	ft_contentlen(void **list)
 	return (len);
 }
 
+/**
+
+ * @brief verifie s'il n'y a pas d'erreur dans les arguments,
+	split et a prendre les arguments entant que tableau d'int
+ *
+ * @param argv Contient tous les arguments du main
+ * @return int**
+ * @date 2024-05-27
+ */
 int	**verify_argv(char **argv)
 {
 	void	**array;
