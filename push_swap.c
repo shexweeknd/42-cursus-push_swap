@@ -6,14 +6,13 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/27 07:42:42 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/05/28 07:55:49 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 #include "push_swap.h"
-#include "utils.h"
 
 /**
  * @brief compte la taille du tableau de donne
@@ -43,27 +42,27 @@ size_t	ft_contentlen(void **list)
  */
 int	**verify_argv(char **argv)
 {
-	void	**array;
-	int		**result;
+	// void	**array;
+	// int		**result;
 
-	array = NULL;
-	if (!argv[2])
-		array = (void **)ft_split(argv[1], ' ');
-	else
-		array = (void **)argv;
-	result = (int **)malloc(sizeof(int) * ft_contentlen(array));
-	while (*array)
-	{
-		if (!ft_isnumber(*(char **)array))
-		{
-			free(result);
-			return (NULL);
-		}
-		**result = ft_atoi(*(char **)array);
-		result++;
-		array++;
-	}
-	return (result);
+	// array = NULL;
+	// if (!argv[2])
+	// 	array = (void **)ft_split(argv[1], ' ');
+	// else
+	// 	array = (void **)argv;
+	// result = (int **)malloc(sizeof(int) * ft_contentlen(array));
+	// while (*array)
+	// {
+	// 	if (!ft_isnumber(*(char **)array))
+	// 	{
+	// 		free(result);
+	// 		return (NULL);
+	// 	}
+	// 	**result = ft_atoi(*(char **)array);
+	// 	result++;
+	// 	array++;
+	// }
+	// return (result);
 }
 
 int	main(int argc, char **argv)

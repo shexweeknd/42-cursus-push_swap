@@ -7,9 +7,9 @@ GARBAGE = *.o */*.o *.gch */*.gch *.out */*.out *.a
 SRCS = push_swap.c \
 		checker.c
 
-# Colors variables
 OBJS = $(SRCS:.c=.o)
 
+# Colors variables
 GREEN = \033[0;32m
 
 RED = \033[0;31m
