@@ -6,12 +6,11 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 07:38:29 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/28 07:50:21 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/05/29 07:31:57 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "utils.h"
 
 /**
  * @brief verifie si la chaine est seulement constitue de chiffres

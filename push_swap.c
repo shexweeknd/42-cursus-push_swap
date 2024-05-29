@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/28 07:55:49 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/05/28 08:00:25 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	**verify_argv(char **argv)
 	// 	result++;
 	// 	array++;
 	// }
-	// return (result);
+	// return (result);rxit
 }
 
 int	main(int argc, char **argv)
