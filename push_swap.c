@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/04 10:40:57 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:51:55 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	*verify_argv(char **argv)
 	if (!argv[2])
 		array = (void **)ft_split(argv[1], ' ');
 	else
-		array = (void **)argv;
+		array = (void **)(argv + 1);
 	array_size = ft_contentlen(array);
 	result = (int *)malloc(sizeof(int) * array_size);
 	while (*array)
