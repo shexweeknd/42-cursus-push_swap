@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/28 08:00:25 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:40:57 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,43 @@ size_t	ft_contentlen(void **list)
 /**
 
  * @brief verifie s'il n'y a pas d'erreur dans les arguments,
-	split et a prendre les arguments entant que tableau d'int
+	split et a prendre les arguments en tant que tableau d'int
  *
  * @param argv Contient tous les arguments du main
  * @return int**
  * @date 2024-05-27
  */
-int	**verify_argv(char **argv)
+int	*verify_argv(char **argv)
 {
-	// void	**array;
-	// int		**result;
+	void	**array;
+	size_t	array_size;
+	int		*result;
 
-	// array = NULL;
-	// if (!argv[2])
-	// 	array = (void **)ft_split(argv[1], ' ');
-	// else
-	// 	array = (void **)argv;
-	// result = (int **)malloc(sizeof(int) * ft_contentlen(array));
-	// while (*array)
-	// {
-	// 	if (!ft_isnumber(*(char **)array))
-	// 	{
-	// 		free(result);
-	// 		return (NULL);
-	// 	}
-	// 	**result = ft_atoi(*(char **)array);
-	// 	result++;
-	// 	array++;
-	// }
-	// return (result);rxit
+	array = NULL;
+	if (!argv[2])
+		array = (void **)ft_split(argv[1], ' ');
+	else
+		array = (void **)argv;
+	array_size = ft_contentlen(array);
+	result = (int *)malloc(sizeof(int) * array_size);
+	while (*array)
+	{
+		if (!ft_isnumber(*(char **)array))
+			return (free(result), NULL);
+		*result = ft_atoi(*(char **)array);
+		result++;
+		array++;
+	}
+	return ((result - array_size));
 }
 
 int	main(int argc, char **argv)
 {
-	int	**array;
+	int	*array;
 
 	array = verify_argv(argv);
-	if (!(argc >= 2) || (*array == NULL))
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	}
+	if (!(argc >= 2) || (array == NULL))
+		return (write(1, "Error\n", 6), 1);
 	// si on a le array alors on implemente l'algo
 	ft_printf("Implementation de l'algorithme de tri\n");
 	return (0);

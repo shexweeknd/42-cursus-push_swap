@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 07:38:29 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/29 07:31:57 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:16:26 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_isnumber(const char *str)
 	if ((*str == '-') || (*str == '+'))
 		str++;
 	while (*str)
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(*str++))
 			return (0);
 	return (2048);
 }
