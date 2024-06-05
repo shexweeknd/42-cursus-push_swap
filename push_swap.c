@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/05 13:47:41 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:34:34 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,12 @@ t_pile	*verify_argv(char **argv)
 int	main(int argc, char **argv)
 {
 	t_pile	*list;
+	t_pile	*temp;
 
 	list = verify_argv(argv);
 	if (!(argc >= 2) || (list == NULL))
 		return (write(1, "Error\n", 6), 1);
-	ft_printf("Implementation de l'algorithme de tri\n");
+	ft_printf("Test sur l'operation de sa\n");
 	free_pile(list);
 	return (0);
 }
