@@ -5,7 +5,10 @@ FLAGS = -Wall -Wextra -Werror
 GARBAGE = *.o */*.o *.gch */*.gch *.out */*.out *.a
 
 SRCS = push_swap.c \
-		checker.c
+		checker.c \
+		ft_op_a.c \
+		ft_op_b.c \
+		ft_op_ab.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -21,7 +24,7 @@ END = \033[0m
 # Rules
 .c.o:
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
-	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I utils
+	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I ./
 
 all: $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
