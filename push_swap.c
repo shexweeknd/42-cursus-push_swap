@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/04 10:51:55 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:42:00 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,52 @@ int	*verify_argv(char **argv)
 	return ((result - array_size));
 }
 
+/**
+ * @brief fonction d'initialisation de la pile
+ *
+ * @return t_pile*
+ * @date 2024-06-05
+ */
+t_pile	*init_pile(void)
+{
+	t_pile	*first_elem;
+
+	first_elem = malloc(sizeof(t_pile *));
+	first_elem->next = NULL;
+	first_elem->prev = NULL;
+	return (first_elem);
+}
+
+/**
+ * @brief insert la liste d'array de int dans la pile
+ *
+ * @param array
+ * @return t_pile*
+ * @date 2024-06-05
+ */
+t_pile	*set_pile(int *array)
+{
+	t_pile	*first_elem;
+	t_pile	*pile_elem;
+
+	first_elem = init_pile();
+	pile_elem = first_elem;
+	while (*array)
+	{
+		pile_elem->value = *array;
+		pile_elem->next = init_pile();
+		pile_elem = pile_elem->next;
+	}
+	return (first_elem);
+}
+
 int	main(int argc, char **argv)
 {
-	int	*array;
+	int		*array;
+	t_pile	*list;
 
 	array = verify_argv(argv);
+	list = set_pile(array);
 	if (!(argc >= 2) || (array == NULL))
 		return (write(1, "Error\n", 6), 1);
 	// si on a le array alors on implemente l'algo
