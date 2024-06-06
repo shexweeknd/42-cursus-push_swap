@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/05 15:34:34 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:39:26 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,19 @@ int	main(int argc, char **argv)
 	if (!(argc >= 2) || (list == NULL))
 		return (write(1, "Error\n", 6), 1);
 	ft_printf("Test sur l'operation de sa\n");
-	free_pile(list);
+	temp = list;
+	while (list)
+	{
+		ft_printf("%d\n", list->value);
+		list = list->next;
+	}
+	ft_printf("\n");
+	list = sa(temp);
+	while (list)
+	{
+		ft_printf("%d\n", list->value);
+		list = list->next;
+	}
+	free_pile(temp);
 	return (0);
 }

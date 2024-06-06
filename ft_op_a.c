@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/05 10:18:24 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:41:37 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,20 @@ t_pile	*sa(t_pile *first_elem)
 		return (first_elem);
 	premier = first_elem;
 	second = first_elem->next;
+	troisieme = first_elem->next->next;
 	second->prev = NULL;
 	second->next = premier;
 	premier->prev = second;
-	if (first_elem->next->next)
+	if (troisieme)
 	{
-		premier->next = first_elem->next->next;
-		first_elem->next->next->prev = premier;
+		premier->next = troisieme;
+		troisieme->prev = premier;
 	}
-	return (first_elem->next->next);
+	else
+	{
+		premier->next = NULL;
+	}
+	return (second);
 }
 
 /**
