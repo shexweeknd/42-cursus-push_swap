@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 10:06:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:15:03 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,33 @@ t_pile	*init_pile(void)
 	return (first_elem);
 }
 
-void	free_pile(t_pile *first_elem)
+void	print_pile(t_pile **pile)
+{
+	t_pile	*first_elem;
+
+	first_elem = *pile;
+	while ((*pile))
+	{
+		ft_printf("%d\n", (*pile)->value);
+		*pile = (*pile)->next;
+	}
+	*pile = first_elem;
+	return ;
+}
+
+void	free_pile(t_pile **pile)
 {
 	t_pile	*suivant;
+	t_pile	**sauvegarde;
 
-	while (first_elem)
+	sauvegarde = pile;
+	while (*pile)
 	{
-		suivant = first_elem->next;
-		free(first_elem);
-		first_elem = suivant;
+		suivant = (*pile)->next;
+		free(*pile);
+		*pile = suivant;
 	}
-	return ;
+	return (free(sauvegarde));
 }
 
 int	ft_pileadd_back(t_pile *elem, int number)
@@ -97,7 +113,7 @@ t_pile	*verify_argv(char **argv)
 	while (*array)
 	{
 		if (!ft_isnumber(*(char **)array))
-			return (free_pile(first_elem), NULL);
+			return (free_pile(&first_elem), NULL);
 		if (!ft_pileadd_back(first_elem, ft_atoi(*(char **)array)))
 			return (NULL);
 		array++;
@@ -111,43 +127,25 @@ t_pile	*create_random_pile(size_t pile_size)
 
 	pile = init_pile();
 	while (pile_size--)
-		ft_pileadd_back(pile, (getpid() * pile_size) % 10);
+		ft_pileadd_back(pile, (getpid() * pile_size) % 100);
 	return (pile);
 }
 
 int	main(int argc, char **argv)
 {
-	t_pile	*a;
-	t_pile	*b;
-	t_pile	*temp_a;
-	t_pile	*temp_b;
+	t_pile	**a;
 
-	a = verify_argv(argv);
-	if (!(argc >= 2) || (a == NULL))
+	a = malloc(sizeof(t_pile **));
+	if (!a)
+		return (write(1, "Erreur d'allocation de la pile\n", 31), 1);
+	*a = verify_argv(argv);
+	if (!(argc >= 2) || (*a == NULL))
 		return (write(1, "Error\n", 6), 1);
 	ft_printf("Pile a: \n");
-	temp_a = a;
-	while (a)
-	{
-		ft_printf("%d\n", a->value);
-		a = a->next;
-	}
-	ft_printf("\nCreated random pile: \n");
-	b = create_random_pile(4);
-	temp_b = b;
-	while (b)
-	{
-		ft_printf("%d\n", b->value);
-		b = b->next;
-	}
-	a = pa(temp_a, temp_b);
+	print_pile(a);
+	sa(a);
 	ft_printf("\nFinal value of pile a: \n");
-	while (a)
-	{
-		ft_printf("%d\n", a->value);
-		a = a->next;
-	}
-	free_pile(temp_a);
-	free_pile(temp_b);
+	print_pile(a);
+	free_pile(a);
 	return (0);
 }

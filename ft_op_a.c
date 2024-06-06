@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 10:22:40 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:22:49 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ Ne fait rien s’il n’y en a qu’un ou aucun
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*sa(t_pile *first_elem)
+void	sa(t_pile **a)
 {
-	t_pile	*temp;
 	t_pile	*premier;
 	t_pile	*second;
 	t_pile	*troisieme;
 
-	if (!first_elem || !first_elem->next)
-		return (first_elem);
-	premier = first_elem;
-	second = first_elem->next;
-	troisieme = first_elem->next->next;
+	if (!a || !(*a)->next)
+		return ;
+	premier = *a;
+	second = (*a)->next;
+	troisieme = (*a)->next->next;
 	second->prev = NULL;
 	second->next = premier;
 	premier->prev = second;
@@ -40,10 +39,9 @@ t_pile	*sa(t_pile *first_elem)
 		troisieme->prev = premier;
 	}
 	else
-	{
 		premier->next = NULL;
-	}
-	return (second);
+	*a = second;
+	return ;
 }
 
 /**
@@ -53,19 +51,19 @@ Ne fait rien si b est vide.
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*pa(t_pile *a, t_pile *b)
+void	pa(t_pile **a, t_pile **b)
 {
 	t_pile	*first_elem_a;
 	t_pile	*first_elem_b;
 	t_pile	*second_elem_b;
 
-	first_elem_a = a;
-	first_elem_b = b;
-	if (!b)
-		return (a);
-	if (b->next)
+	first_elem_a = *a;
+	first_elem_b = *b;
+	if (!*b)
+		return ;
+	if ((*b)->next)
 	{
-		second_elem_b = b->next;
+		second_elem_b = (*b)->next;
 	}
 	else
 	{
@@ -75,7 +73,10 @@ t_pile	*pa(t_pile *a, t_pile *b)
 	first_elem_b->next = first_elem_a;
 	if (second_elem_b)
 		second_elem_b->prev = NULL;
-	return (first_elem_b);
+	*a = first_elem_b;
+	if (second_elem_b)
+		*b = second_elem_b;
+	return ;
 }
 
 /**
@@ -102,7 +103,7 @@ la pile a. Le dernier élément devient le premier.
  */
 t_pile	*rra(t_pile *first_elem)
 {
-	t_pile *result;
+	t_pile	*result;
 
 	return (result);
 }

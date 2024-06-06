@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:25 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/05 09:03:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:23:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ t_pile	*rr(t_pile *first_elem)
  */
 t_pile	*rrr(t_pile *first_elem)
 {
-	t_pile *result;
+	t_pile	*result;
 
 	result = rra(first_elem);
 	result = rrb(result);
-
 	return (result);
 }
