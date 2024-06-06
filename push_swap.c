@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 09:39:26 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:06:48 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,28 +105,49 @@ t_pile	*verify_argv(char **argv)
 	return (first_elem);
 }
 
+t_pile	*create_random_pile(size_t pile_size)
+{
+	t_pile	*pile;
+
+	pile = init_pile();
+	while (pile_size--)
+		ft_pileadd_back(pile, (getpid() * pile_size) % 10);
+	return (pile);
+}
+
 int	main(int argc, char **argv)
 {
-	t_pile	*list;
-	t_pile	*temp;
+	t_pile	*a;
+	t_pile	*b;
+	t_pile	*temp_a;
+	t_pile	*temp_b;
 
-	list = verify_argv(argv);
-	if (!(argc >= 2) || (list == NULL))
+	a = verify_argv(argv);
+	if (!(argc >= 2) || (a == NULL))
 		return (write(1, "Error\n", 6), 1);
-	ft_printf("Test sur l'operation de sa\n");
-	temp = list;
-	while (list)
+	ft_printf("Pile a: \n");
+	temp_a = a;
+	while (a)
 	{
-		ft_printf("%d\n", list->value);
-		list = list->next;
+		ft_printf("%d\n", a->value);
+		a = a->next;
 	}
-	ft_printf("\n");
-	list = sa(temp);
-	while (list)
+	ft_printf("\nCreated random pile: \n");
+	b = create_random_pile(4);
+	temp_b = b;
+	while (b)
 	{
-		ft_printf("%d\n", list->value);
-		list = list->next;
+		ft_printf("%d\n", b->value);
+		b = b->next;
 	}
-	free_pile(temp);
+	a = pa(temp_a, temp_b);
+	ft_printf("\nFinal value of pile a: \n");
+	while (a)
+	{
+		ft_printf("%d\n", a->value);
+		a = a->next;
+	}
+	free_pile(temp_a);
+	free_pile(temp_b);
 	return (0);
 }

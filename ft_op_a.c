@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 09:50:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:02:43 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_pile	*pa(t_pile *a, t_pile *b)
 	first_elem_b->next = first_elem_a;
 	if (second_elem_b)
 		second_elem_b->prev = NULL;
-	return (first_elem_a);
+	return (first_elem_b);
 }
 
 /**
