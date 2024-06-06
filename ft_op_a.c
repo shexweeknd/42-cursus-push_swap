@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 11:22:49 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:25:48 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,23 @@ Le premier élément devient le dernier.
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*ra(t_pile *first_elem)
+void	ra(t_pile **a)
 {
-	t_pile	*result;
+	t_pile	**sauvegarde;
+	t_pile	*avant_dernier;
 
-	return (result);
+	sauvegarde = a;
+	while (*a)
+	{
+		if ((*a)->next == NULL)
+			break ;
+		*a = (*a)->next;
+	}
+	(*a)->prev->next = NULL;
+	(*a)->prev = NULL;
+	(*a)->next = *sauvegarde;
+	(*sauvegarde)->prev = *a;
+	a = sauvegarde;
 }
 
 /**

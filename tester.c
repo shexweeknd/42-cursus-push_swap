@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 11:11:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 13:12:47 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:15:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sa(int argc, char **argv)
 		return (write(1, "Error\n", 6), 1);
 	ft_printf("Pile a: \n");
 	print_pile(a);
-	sa(a);
+	// sa(a);
 	ft_printf("\nFinal value of pile a: \n");
 	print_pile(a);
 	free_pile(a);
