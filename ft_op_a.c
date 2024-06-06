@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 09:41:37 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:50:48 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,29 @@ Ne fait rien si b est vide.
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*pa(t_pile *first_elem)
+t_pile	*pa(t_pile *a, t_pile *b)
 {
-	t_pile	*result;
+	t_pile	*first_elem_a;
+	t_pile	*first_elem_b;
+	t_pile	*second_elem_b;
 
-	return (result);
+	first_elem_a = a;
+	first_elem_b = b;
+	if (!b)
+		return (a);
+	if (b->next)
+	{
+		second_elem_b = b->next;
+	}
+	else
+	{
+		second_elem_b = NULL;
+	}
+	first_elem_a->prev = first_elem_b;
+	first_elem_b->next = first_elem_a;
+	if (second_elem_b)
+		second_elem_b->prev = NULL;
+	return (first_elem_a);
 }
 
 /**
