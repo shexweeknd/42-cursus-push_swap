@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 13:26:16 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:40:10 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ typedef struct s_pile
 void				sa(t_pile **a);
 void				pa(t_pile **a, t_pile **b);
 void				ra(t_pile **a);
-t_pile				*rra(t_pile *first_elem);
+void				rra(t_pile **a);
 
 // operations sur b
 void				sb(t_pile **b);
 void				pb(t_pile **b, t_pile **a);
-void				ra(t_pile **b);
-t_pile				*rrb(t_pile *first_elem);
+void				rb(t_pile **b);
+void				rrb(t_pile **a);
 
 // operations sur ab
-t_pile				*rr(t_pile *first_elem);
-t_pile				*rrr(t_pile *first_elem);
+void				rr(t_pile **a, t_pile **b);
+void				rrr(t_pile **a, t_pile **b);
 
 #endif

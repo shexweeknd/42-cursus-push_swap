@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:25 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 11:23:06 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:38:14 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*rr(t_pile *first_elem)
+void	rr(t_pile **a, t_pile **b)
 {
-	t_pile	*result;
-
-	result = ra(first_elem);
-	result = rb(result);
-	return (result);
+	ra(a);
+	rb(b);
+	return ;
 }
 
 /**
@@ -35,11 +33,9 @@ t_pile	*rr(t_pile *first_elem)
  * @return t_pile*
  * @date 2024-06-05
  */
-t_pile	*rrr(t_pile *first_elem)
+void	rrr(t_pile **a, t_pile **b)
 {
-	t_pile	*result;
-
-	result = rra(first_elem);
-	result = rrb(result);
-	return (result);
+	rra(a);
+	rrb(b);
+	return ;
 }
