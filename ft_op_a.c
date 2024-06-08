@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/08 09:49:54 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:57:21 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,13 @@ Le premier élément devient le dernier.
 void	ra(t_pile **a)
 {
 	t_pile	*sauvegarde;
-	t_pile	*avant_dernier;
-	t_pile 	*to_return;
-	
+	t_pile	*return_adress;
+
 	sauvegarde = *a;
 	if (sauvegarde->next)
-		to_return = sauvegarde->next;
-	else 
-		to_return = sauvegarde;
+		return_adress = sauvegarde->next;
+	else
+		return_adress = sauvegarde;
 	while (*a)
 	{
 		if ((*a)->next == NULL)
@@ -107,7 +106,7 @@ void	ra(t_pile **a)
 	sauvegarde->next->prev = NULL;
 	sauvegarde->prev = *a;
 	sauvegarde->next = NULL;
-	*a = to_return;
+	*a = return_adress;
 }
 
 /**
@@ -120,5 +119,29 @@ la pile a. Le dernier élément devient le premier.
  */
 void	rra(t_pile **a)
 {
+	t_pile	*sauvegarde;
+	t_pile	*avant_dernier;
+
+	sauvegarde = *a;
+	while (*a)
+	{
+		if ((*a)->next == NULL)
+			break ;
+		*a = (*a)->next;
+	}
+	avant_dernier = (*a)->prev;
+	(*a)->prev = NULL;
+	if (*a != sauvegarde)
+	{
+		(*a)->next = sauvegarde;
+		sauvegarde->prev = *a;
+		if (avant_dernier)
+			avant_dernier->next = NULL;
+	}
+	else
+	{
+		(*a)->next = NULL;
+		(*a)->prev = NULL;
+	}
 	return ;
 }

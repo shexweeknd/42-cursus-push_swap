@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/08 10:38:12 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:46:42 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	main(int argc, char **argv)
 	*a = verify_argv(argv, argc);
 	ft_printf("Pile a: \n");
 	print_pile(a);
-	ra(a);
+	rra(a);
 	ft_printf("\nFinal value of pile a: \n");
 	print_pile(a);
 	free_pile(a);
