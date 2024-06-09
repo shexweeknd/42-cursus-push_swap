@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/08 13:46:42 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/09 12:37:59 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,22 @@ size_t	get_args_numbers(char *argv)
 		else
 			return (0);
 	}
+	return (result);
+}
+
+/**
+ * @brief TODO verifier si la liste n'est pas deja trie des le debut
+ * 
+ * @param pile 
+ * @return int 
+ * @date 2024-06-09
+ */
+int ft_is_sorted(t_pile *pile)
+{
+	int result;
+
+	result = 0;
+	while ()
 	return (result);
 }
 
