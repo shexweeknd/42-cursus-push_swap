@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   ft_isint.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 07:38:29 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 10:04:54 by hramaros         ###   ########.fr       */
+/*   Created: 2024/06/10 11:07:52 by hramaros          #+#    #+#             */
+/*   Updated: 2024/06/10 11:23:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-/**
- * @brief verifie si la chaine est seulement constitue de chiffres
- *
- * @param str
- * @return int
- * @date 2024-05-27
- */
-int	ft_isnumber(const char *str)
+int	ft_isint(long long nbr)
 {
-	if ((*str == '-') || (*str == '+'))
-		str++;
-	while (*str)
-	{
-		if (*str == ' ')
-		{
-			str++;
-			continue ;
-		}
-		else if (!ft_isdigit(*str))
-			return (0);
-		str++;
-	}
-	return (2048);
+	if ((nbr < INT_MIN) || (nbr > INT_MAX))
+		return (0);
+	return (1);
 }

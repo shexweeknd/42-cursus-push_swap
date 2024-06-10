@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/09 12:37:59 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:25:13 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_pile(t_pile **pile)
 	first_elem = *pile;
 	while ((*pile))
 	{
-		ft_printf("%d\n", (*pile)->value);
+		printf("%ld\n", (*pile)->value);
 		*pile = (*pile)->next;
 	}
 	*pile = first_elem;
@@ -73,7 +73,7 @@ void	free_pile(t_pile **pile)
  * @return int
  * @date 2024-06-08
  */
-int	ft_pileadd_back(t_pile *elem, int number, int remaining_args, int all_args)
+int	ft_pileadd_back(t_pile *elem, long number, int remaining_args, int all_args)
 {
 	while (elem)
 	{
@@ -124,7 +124,7 @@ t_pile	*verify_argv(char **argv, int remaining_args)
 	{
 		if (!ft_isnumber(*(char **)array))
 			return (free_pile(&first_elem), NULL);
-		if (!ft_pileadd_back(first_elem, ft_atoi(*(char **)array),
+		if (!ft_pileadd_back(first_elem, ft_atol(*(char **)array),
 				remaining_args--, all_args))
 			return (NULL);
 		array++;
@@ -168,40 +168,104 @@ size_t	get_args_numbers(char *argv)
 }
 
 /**
- * @brief TODO verifier si la liste n'est pas deja trie des le debut
- * 
- * @param pile 
- * @return int 
+ * @brief verifier si la liste n'est pas deja trie des le debut
+ *
+ * @param pile
+ * @return int
  * @date 2024-06-09
  */
-int ft_is_sorted(t_pile *pile)
+int	ft_is_sorted(t_pile *pile)
 {
-	int result;
+	int	temp;
 
-	result = 0;
-	while ()
-	return (result);
+	temp = pile->value;
+	pile = pile->next;
+	while (pile)
+	{
+		if (pile->value > temp)
+			pile = pile->next;
+		else
+			return (0);
+		if (pile)
+		{
+			temp = pile->value;
+			pile = pile->next;
+		}
+	}
+	return (1);
+}
+
+/**
+ * @brief verifie s'il n'y a pas de doublons dans la liste
+ *
+ * @param pile
+ * @return int
+ * @date 2024-06-10
+ */
+int	ft_has_duplicates(t_pile *pile)
+{
+	t_pile	*temp;
+	t_pile	*cursor;
+
+	temp = pile;
+	while (temp)
+	{
+		cursor = temp->next;
+		while (cursor)
+		{
+			if (temp->value == cursor->value)
+				return (1);
+			cursor = cursor->next;
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
+/**
+ * @brief verifie s'il n'y a pas de plus que la valeur de to_compare
+ *
+ * @param pile
+ * @param to_compare
+ * @date 2024-06-10
+ */
+int	ft_has_greater_than(t_pile *pile, long long to_compare)
+{
+	while (pile)
+	{
+		if (pile->value > to_compare)
+			return (1);
+		pile = pile->next;
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_pile	**a;
+	int		i;
 
 	a = malloc(sizeof(t_pile **));
 	if (!a)
 		return (write(1, "Erreur d'allocation de la pile\n", 31), 1);
-	if (!(argc >= 2))
+	if (!(argc >= 2) && (argc != 1))
 		return (write(1, "Error\n", 6), 1);
 	if (argc == 2)
 		argc = get_args_numbers(argv[1]);
 	else
 		argc -= 1;
+	i = 1;
+	while (argv[i])
+		if (!ft_isnumber(argv[i++]))
+			return (write(1, "Error\n", 6), 1);
 	*a = verify_argv(argv, argc);
+	if (ft_is_sorted(*a) || (*a == NULL))
+		return (free_pile(a), 0);
+	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
+		return (free_pile(a), write(1, "Error\n", 6), 0);
 	ft_printf("Pile a: \n");
 	print_pile(a);
 	rra(a);
-	ft_printf("\nFinal value of pile a: \n");
-	print_pile(a);
-	free_pile(a);
-	return (0);
+	return (ft_printf("\nFinal value of pile a: \n"), print_pile(a),
+		free_pile(a), 0);
 }

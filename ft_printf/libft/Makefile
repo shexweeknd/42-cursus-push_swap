@@ -3,6 +3,7 @@ FLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 
 SRC = ft_atoi.c \
+	ft_atol.c \
 	ft_bzero.c \
 	ft_calloc.c \
 	ft_isalnum.c \
@@ -10,6 +11,7 @@ SRC = ft_atoi.c \
 	ft_isascii.c \
 	ft_isdigit.c \
 	ft_isprint.c \
+	ft_isint.c \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_memcpy.c \
