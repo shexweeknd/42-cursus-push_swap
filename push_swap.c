@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:45:39 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:02:34 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,37 @@ int	ft_has_greater_than(t_pile *pile, long long to_compare)
 	return (0);
 }
 
+size_t	get_pile_size(t_pile *pile)
+{
+	size_t	result;
+
+	result = 0;
+	while (pile)
+	{
+		result++;
+		pile->next;
+	}
+	return (result);
+}
+
+/**
+ * @brief mini_sort si la pile a moins de 3 elements,
+	big_sort si la pile a n > 3 elements
+ *
+ * @param a
+ * @date 2024-06-10
+ */
+void	push_swap(t_pile **a)
+{
+	size_t	pile_size;
+
+	pile_size = get_pile_size(*a);
+	if (pile_size <= 3)
+		mini_sort(a);
+	else
+		big_sort(a);
+}
+
 int	main(int argc, char **argv)
 {
 	t_pile	**a;
@@ -261,9 +292,6 @@ int	main(int argc, char **argv)
 		return (free_pile(a), 0);
 	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
 		return (free_pile(a), write(1, "Error\n", 6), 0);
-	ft_printf("Pile a: \n");
-	print_pile(a);
-	rra(a);
-	return (ft_printf("\nFinal value of pile a: \n"), print_pile(a),
-		free_pile(a), 0);
+	push_swap(a);
+	return (free_pile(a), 0);
 }
