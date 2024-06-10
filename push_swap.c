@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 12:02:34 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:08:56 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,54 @@ int	ft_pileadd_back(t_pile *elem, long number, int remaining_args, int all_args)
 }
 
 /**
+ * @brief renvoie la taille du tableau a deux dimensions
+ *
+ * @param splitted
+ * @return size_t
+ * @date 2024-06-10
+ */
+size_t	get_twodim_size(char **splitted)
+{
+	size_t	result;
 
+	result = 0;
+	if (!splitted)
+		return (result);
+	while (*splitted++)
+		result++;
+	return (result);
+}
+
+/**
+
+	* @brief combiner deux resultats de ft_split en un seul
+	tableau de char a 2 dimensions
+ *
+ * @param s1
+ * @param s2
+ * @return char**
+ * @date 2024-06-10
+ */
+char	**combine_splitted(char **s1, char **s2)
+{
+	char	**result;
+	char	**temp;
+	size_t	total_size;
+
+	total_size = get_twodim_size((char **)s1) + get_twodim_size((char **)s2);
+	temp = (char **)malloc(sizeof(char *) * (total_size + 1));
+	result = temp;
+	if (!temp)
+		return (free(s1), free(s2), NULL);
+	while (s1 && *s1)
+		*temp++ = *s1++;
+	while (s2 && *s2)
+		*temp++ = *s2++;
+	*temp = 0;
+	return (result);
+}
+
+/**
  * @brief verifie s'il n'y a pas d'erreur dans les arguments,
 	split et a prendre les arguments en tant que tableau d'int
  *
@@ -113,10 +160,8 @@ t_pile	*verify_argv(char **argv, int remaining_args)
 	all_args = remaining_args;
 	if (!first_elem)
 		return (NULL);
-	if (!argv[2])
-		array = (void **)ft_split(argv[1], ' ');
-	else
-		array = (void **)(argv + 1);
+	while (*++argv)
+		array = (void **)combine_splitted((char **)array, ft_split(*argv, ' '));
 	array_size = ft_contentlen(array);
 	while (*array)
 	{
@@ -238,6 +283,13 @@ int	ft_has_greater_than(t_pile *pile, long long to_compare)
 	return (0);
 }
 
+/**
+ * @brief TODEBUG pour l'entree 1 0 4 "2 6 8"
+ *
+ * @param pile
+ * @return size_t
+ * @date 2024-06-10
+ */
 size_t	get_pile_size(t_pile *pile)
 {
 	size_t	result;
@@ -246,7 +298,7 @@ size_t	get_pile_size(t_pile *pile)
 	while (pile)
 	{
 		result++;
-		pile->next;
+		pile = pile->next;
 	}
 	return (result);
 }
@@ -264,9 +316,11 @@ void	push_swap(t_pile **a)
 
 	pile_size = get_pile_size(*a);
 	if (pile_size <= 3)
-		mini_sort(a);
+		// mini_sort(a);
+		ft_printf("mini sorting");
 	else
-		big_sort(a);
+		// big_sort(a);
+		ft_printf("big sorting");
 }
 
 int	main(int argc, char **argv)
