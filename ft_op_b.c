@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/06 13:39:18 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:42:55 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	pb(t_pile **b, t_pile **a)
 	t_pile	*first_elem_a;
 	t_pile	*second_elem_a;
 
-	first_elem_a = *a;
 	first_elem_b = *b;
+	first_elem_a = *a;
 	if (!*a)
 		return ;
 	if ((*a)->next)
@@ -88,12 +88,30 @@ Le premier élément devient le dernier.
  */
 void	rb(t_pile **b)
 {
-	return ;
+	t_pile	*sauvegarde;
+	t_pile	*return_adress;
+
+	sauvegarde = *b;
+	if (sauvegarde->next)
+		return_adress = sauvegarde->next;
+	else
+		return_adress = sauvegarde;
+	while (*b)
+	{
+		if ((*b)->next == NULL)
+			break ;
+		*b = (*b)->next;
+	}
+	(*b)->next = sauvegarde;
+	sauvegarde->next->prev = NULL;
+	sauvegarde->prev = *b;
+	sauvegarde->next = NULL;
+	*b = return_adress;
 }
 
 /**
  * @brief Décale d’une position vers le bas tous les élements de
-la pile b. Le dernier élément devient le premier.
+la pile a. Le dernier élément devient le premier.
  *
  * @param first_elem
  * @return t_pile*
@@ -101,5 +119,29 @@ la pile b. Le dernier élément devient le premier.
  */
 void	rrb(t_pile **b)
 {
+	t_pile	*sauvegarde;
+	t_pile	*avant_dernier;
+
+	sauvegarde = *b;
+	while (*b)
+	{
+		if ((*b)->next == NULL)
+			break ;
+		*b = (*b)->next;
+	}
+	avant_dernier = (*b)->prev;
+	(*b)->prev = NULL;
+	if (*b != sauvegarde)
+	{
+		(*b)->next = sauvegarde;
+		sauvegarde->prev = *b;
+		if (avant_dernier)
+			avant_dernier->next = NULL;
+	}
+	else
+	{
+		(*b)->next = NULL;
+		(*b)->prev = NULL;
+	}
 	return ;
 }
