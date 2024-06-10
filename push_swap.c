@@ -6,12 +6,10 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:25:13 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:45:39 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
 #include "push_swap.h"
 
 size_t	ft_contentlen(void **list)

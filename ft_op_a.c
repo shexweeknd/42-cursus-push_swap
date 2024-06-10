@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/08 13:57:21 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:48:20 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	sa(t_pile **a)
 	else
 		premier->next = NULL;
 	*a = second;
-	return ;
+	write(1, "sa\n", 3);
 }
 
 /**
@@ -76,7 +76,7 @@ void	pa(t_pile **a, t_pile **b)
 	*a = first_elem_b;
 	if (second_elem_b)
 		*b = second_elem_b;
-	return ;
+	write(1, "pa\n", 3);
 }
 
 /**
@@ -107,6 +107,7 @@ void	ra(t_pile **a)
 	sauvegarde->prev = *a;
 	sauvegarde->next = NULL;
 	*a = return_adress;
+	write(1, "ra\n", 3);
 }
 
 /**
@@ -143,5 +144,5 @@ void	rra(t_pile **a)
 		(*a)->next = NULL;
 		(*a)->prev = NULL;
 	}
-	return ;
+	write(1, "rra\n", 3);
 }

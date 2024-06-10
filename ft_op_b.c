@@ -6,14 +6,14 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:42:55 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:49:33 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /**
- * @brief Intervertit les 2 premiers éléments au sommet de la pile a.
+ * @brief Intervertit les 2 premiers éléments au sommet de la pile b.
 Ne fait rien s’il n’y en a qu’un ou aucun
  *
  * @return t_pile*
@@ -41,12 +41,12 @@ void	sb(t_pile **b)
 	else
 		premier->next = NULL;
 	*b = second;
-	return ;
+	write(1, "sb\n", 3);
 }
 
 /**
- * @brief Prend le premier élément au sommet de b et le met sur a.
-Ne fait rien si b est vide.
+ * @brief Prend le premier élément au sommet de b et le met sur b.
+Ne fait rien si a est vide.
  *
  * @return t_pile*
  * @date 2024-06-05
@@ -76,11 +76,11 @@ void	pb(t_pile **b, t_pile **a)
 	*b = first_elem_a;
 	if (second_elem_a)
 		*a = second_elem_a;
-	return ;
+	write(1, "pb\n", 3);
 }
 
 /**
- * @brief Décale d’une position vers le haut tous les élements de la pile a.
+ * @brief Décale d’une position vers le haut tous les élements de la pile b.
 Le premier élément devient le dernier.
  *
  * @return t_pile*
@@ -107,11 +107,12 @@ void	rb(t_pile **b)
 	sauvegarde->prev = *b;
 	sauvegarde->next = NULL;
 	*b = return_adress;
+	write(1, "rb\n", 3);
 }
 
 /**
  * @brief Décale d’une position vers le bas tous les élements de
-la pile a. Le dernier élément devient le premier.
+la pile b. Le dernier élément devient le premier.
  *
  * @param first_elem
  * @return t_pile*
@@ -143,5 +144,5 @@ void	rrb(t_pile **b)
 		(*b)->next = NULL;
 		(*b)->prev = NULL;
 	}
-	return ;
+	write(1, "rrb\n", 3);
 }
