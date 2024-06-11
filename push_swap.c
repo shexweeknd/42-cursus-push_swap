@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 15:08:56 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 08:51:33 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,15 +225,10 @@ int	ft_is_sorted(t_pile *pile)
 	pile = pile->next;
 	while (pile)
 	{
-		if (pile->value > temp)
-			pile = pile->next;
-		else
+		if (pile->value < temp)
 			return (0);
-		if (pile)
-		{
-			temp = pile->value;
-			pile = pile->next;
-		}
+		temp = pile->value;
+		pile = pile->next;
 	}
 	return (1);
 }
@@ -303,6 +298,26 @@ size_t	get_pile_size(t_pile *pile)
 	return (result);
 }
 
+void	mini_sort(t_pile **a)
+{
+	long	premier;
+	long	deuxieme;
+	long	troisieme;
+
+	premier = (*a)->value;
+	deuxieme = (*a)->next->value;
+	troisieme = (*a)->next->next->value;
+	while (!ft_is_sorted(*a))
+	{
+		if ((troisieme > premier) && (troisieme > deuxieme))
+			sa(a);
+		else if ((premier > deuxieme) && (premier > troisieme))
+			ra(a);
+		else if ((deuxieme > premier) && (deuxieme > troisieme))
+			rra(a);
+	}
+}
+
 /**
  * @brief mini_sort si la pile a moins de 3 elements,
 	big_sort si la pile a n > 3 elements
@@ -315,9 +330,11 @@ void	push_swap(t_pile **a)
 	size_t	pile_size;
 
 	pile_size = get_pile_size(*a);
-	if (pile_size <= 3)
-		// mini_sort(a);
-		ft_printf("mini sorting");
+	if (pile_size == 2)
+		ra(a);
+	else if (pile_size == 3)
+		mini_sort(a);
+	// ft_printf("mini sorting");
 	else
 		// big_sort(a);
 		ft_printf("big sorting");
