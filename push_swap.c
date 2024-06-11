@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 09:36:29 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:43:33 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,10 +365,10 @@ int	main(int argc, char **argv)
 		if (!ft_isnumber(argv[i++]))
 			return (write(1, "Error\n", 6), 1);
 	*a = verify_argv(argv);
-	if (ft_is_sorted(*a) || (*a == NULL))
-		return (free_pile(a), 0);
 	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
 		return (free_pile(a), write(1, "Error\n", 6), 0);
+	if (ft_is_sorted(*a) || (*a == NULL))
+		return (free_pile(a), 0);
 	push_swap(a);
 	return (print_pile(a), free_pile(a), 0);
 }
