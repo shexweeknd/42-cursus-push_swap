@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:25 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:52:25 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:02:23 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	rrr(t_pile **a, t_pile **b)
 {
 	rra(a);
 	rrb(b);
-	write(1, "rrr\n", 3);
+	write(1, "rrr\n", 4);
 }

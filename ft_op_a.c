@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:48:20 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:02:00 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,5 @@ void	rra(t_pile **a)
 		(*a)->next = NULL;
 		(*a)->prev = NULL;
 	}
-	write(1, "rra\n", 3);
+	write(1, "rra\n", 4);
 }

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 08:51:33 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:03:59 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,17 +298,23 @@ size_t	get_pile_size(t_pile *pile)
 	return (result);
 }
 
+/**
+ * @brief trie la liste de 3 elements
+ *
+ * @param a
+ * @date 2024-06-11
+ */
 void	mini_sort(t_pile **a)
 {
 	long	premier;
 	long	deuxieme;
 	long	troisieme;
 
-	premier = (*a)->value;
-	deuxieme = (*a)->next->value;
-	troisieme = (*a)->next->next->value;
 	while (!ft_is_sorted(*a))
 	{
+		premier = (*a)->value;
+		deuxieme = (*a)->next->value;
+		troisieme = (*a)->next->next->value;
 		if ((troisieme > premier) && (troisieme > deuxieme))
 			sa(a);
 		else if ((premier > deuxieme) && (premier > troisieme))
@@ -334,7 +340,6 @@ void	push_swap(t_pile **a)
 		ra(a);
 	else if (pile_size == 3)
 		mini_sort(a);
-	// ft_printf("mini sorting");
 	else
 		// big_sort(a);
 		ft_printf("big sorting");
@@ -364,5 +369,5 @@ int	main(int argc, char **argv)
 	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
 		return (free_pile(a), write(1, "Error\n", 6), 0);
 	push_swap(a);
-	return (free_pile(a), 0);
+	return (print_pile(a), free_pile(a), 0);
 }
