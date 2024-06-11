@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 09:03:59 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:36:29 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	free_pile(t_pile **pile)
  * @return int
  * @date 2024-06-08
  */
-int	ft_pileadd_back(t_pile *elem, long number, int remaining_args, int all_args)
+int	ft_pileadd_back(t_pile *elem, long number, int current_cursor,
+		int last_cursor)
 {
 	while (elem)
 	{
@@ -79,16 +80,16 @@ int	ft_pileadd_back(t_pile *elem, long number, int remaining_args, int all_args)
 			break ;
 		elem = elem->next;
 	}
-	if (remaining_args && (remaining_args != all_args))
+	if (current_cursor && (current_cursor < last_cursor))
 	{
 		elem->next = init_pile();
 		elem->next->prev = elem;
 		elem->next->value = number;
 	}
-	else
-	{
+	else if (current_cursor == 0)
 		elem->value = number;
-	}
+	else if (current_cursor >= last_cursor)
+		return (1);
 	return (1);
 }
 
@@ -148,27 +149,27 @@ char	**combine_splitted(char **s1, char **s2)
  * @return int**
  * @date 2024-05-27
  */
-t_pile	*verify_argv(char **argv, int remaining_args)
+t_pile	*verify_argv(char **argv)
 {
 	void	**array;
 	t_pile	*first_elem;
 	size_t	array_size;
-	int		all_args;
+	int		current_cursor;
 
 	first_elem = init_pile();
 	array = NULL;
-	all_args = remaining_args;
 	if (!first_elem)
 		return (NULL);
 	while (*++argv)
 		array = (void **)combine_splitted((char **)array, ft_split(*argv, ' '));
 	array_size = ft_contentlen(array);
+	current_cursor = 0;
 	while (*array)
 	{
 		if (!ft_isnumber(*(char **)array))
 			return (free_pile(&first_elem), NULL);
 		if (!ft_pileadd_back(first_elem, ft_atol(*(char **)array),
-				remaining_args--, all_args))
+				current_cursor++, array_size))
 			return (NULL);
 		array++;
 	}
@@ -181,9 +182,9 @@ t_pile	*create_random_pile(size_t pile_size)
 	int		total_pile_size;
 
 	pile = init_pile();
-	total_pile_size = pile_size;
-	while (pile_size)
-		ft_pileadd_back(pile, (getpid() * pile_size) % 100, pile_size--,
+	total_pile_size = 0;
+	while (pile_size < total_pile_size)
+		ft_pileadd_back(pile, (getpid() * pile_size) % 100, pile_size++,
 			total_pile_size);
 	return (pile);
 }
@@ -279,7 +280,7 @@ int	ft_has_greater_than(t_pile *pile, long long to_compare)
 }
 
 /**
- * @brief TODEBUG pour l'entree 1 0 4 "2 6 8"
+ * @brief retourne la taille de la pile
  *
  * @param pile
  * @return size_t
@@ -363,7 +364,7 @@ int	main(int argc, char **argv)
 	while (argv[i])
 		if (!ft_isnumber(argv[i++]))
 			return (write(1, "Error\n", 6), 1);
-	*a = verify_argv(argv, argc);
+	*a = verify_argv(argv);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
 	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
