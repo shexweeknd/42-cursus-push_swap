@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 09:02:13 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/13 08:53:31 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	sb(t_pile **b)
 }
 
 /**
- * @brief Prend le premier élément au sommet de b et le met sur b.
+ * @brief Prend le premier élément au sommet de a et le met sur b.
 Ne fait rien si a est vide.
  *
  * @return t_pile*

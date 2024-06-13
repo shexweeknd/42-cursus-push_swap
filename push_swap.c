@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 09:43:33 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:53:17 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,102 @@ void	mini_sort(t_pile **a)
 }
 
 /**
+
+	* @brief TODEBUG and TOVERIFY modifier ces deux fonctions pour s'adapter au contexte
+ *
+ * @param head
+ * @param target
+ * @return int TODO doit retourner l'adresse de l'element de la pile
+ * @date 2024-06-13
+ */
+t_pile	*find_closest(t_pile *head, t_pile *target)
+{
+	t_pile	*closest;
+	long	target_value;
+	t_pile	*current;
+
+	if (!head || !target)
+		return (NULL);
+	closest = head;
+	target_value = target->value;
+	current = head->next;
+	while (current)
+	{
+		if (labs(current->value - target_value) < labs(closest->value
+				- target_value))
+		{
+			closest = current;
+		}
+		else if (labs(current->value - target_value) == labs(closest->value
+				- target_value) && current->value < closest->value)
+		{
+			closest = current;
+		}
+		current = current->next;
+	}
+	return (closest);
+}
+
+// TODO Fonction pour trouver le plus petit nombre parmi les plus proches de chaque liste chaînée
+t_pile	*find_smallest_closest(t_pile **lists, int num_lists, t_pile **target)
+{
+	t_pile	*smallest_closest;
+	t_pile	*closest;
+
+	smallest_closest = NULL;
+	for (int i = 0; i < num_lists; i++)
+	{
+		closest = find_closest(lists[i], *target);
+		if (!smallest_closest || (closest
+				&& closest->value < smallest_closest->value))
+		{
+			smallest_closest = closest;
+		}
+	}
+	return (smallest_closest);
+}
+
+/**
+ * @brief TODO cette fonction va calculer et assigner les targets de pile a
+ *
+ * @param a
+ * @param b
+ * @date 2024-06-13
+ */
+// liste de test 99 0 25 -38 10 7 42
+void	compute_target(t_pile **a, t_pile **b)
+{
+	t_pile	*addr;
+
+	addr = find_smallest_closest(a, (*a)->value, b);
+	printf("La target de: %ld est: %ld\n", (*a)->value, addr->value);
+}
+
+/**
+ * @brief TODO sert a faire un sorting avec l'algorithme TURK
+ *
+ * @param a
+ * @date 2024-06-12
+ */
+void	big_sort(t_pile **a)
+{
+	t_pile	**b;
+	int		index;
+
+	b = malloc(sizeof(t_pile **));
+	if (!b)
+	{
+		free_pile(a);
+		return ;
+	}
+	index = 2;
+	while ((get_pile_size(*a) > 3) && index--)
+		pb(b, a);
+	compute_target(a, b);
+	free_pile(b);
+}
+
+/**
  * @brief mini_sort si la pile a moins de 3 elements,
 	big_sort si la pile a n > 3 elements
  *
@@ -342,8 +438,7 @@ void	push_swap(t_pile **a)
 	else if (pile_size == 3)
 		mini_sort(a);
 	else
-		// big_sort(a);
-		ft_printf("big sorting");
+		big_sort(a);
 }
 
 int	main(int argc, char **argv)
