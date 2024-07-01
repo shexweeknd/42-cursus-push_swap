@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 14:19:07 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:47:03 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ void	push_swap(t_pile **a)
 int	main(int argc, char **argv)
 {
 	t_pile	**a;
+	t_pile	**b;
 	int		i;
 
 	a = malloc(sizeof(t_pile **));
@@ -317,6 +318,13 @@ int	main(int argc, char **argv)
 		return (free_pile(a), write(1, "Error\n", 6), 0);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
-	push_swap(a);
-	return (print_pile(a), free_pile(a), 0);
+	// push_swap(a);
+	b = malloc(sizeof(t_pile **));
+	if (!a)
+		return (free_pile(a), free_pile(b), write(1,
+				"Erreur d'allocation de la pile\n", 31), 1);
+	*b = create_random_pile(4);
+	print_pile(b);
+	set_a_target(a, b);
+	return (print_targets(a), free_pile(a), free_pile(b), 0);
 }

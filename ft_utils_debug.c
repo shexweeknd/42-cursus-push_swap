@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 16:12:42 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:50:00 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_pile	*create_random_pile(size_t pile_size)
 	int		total_pile_size;
 
 	pile = init_pile();
-	total_pile_size = 0;
+	total_pile_size = 7;
 	while (pile_size < total_pile_size)
 		ft_pileadd_back(pile, (getpid() * pile_size) % 100, pile_size++,
 			total_pile_size);
