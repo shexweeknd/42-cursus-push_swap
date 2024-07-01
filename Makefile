@@ -8,7 +8,10 @@ SRCS = push_swap.c \
 		checker.c \
 		ft_op_a.c \
 		ft_op_b.c \
-		ft_op_ab.c
+		ft_op_ab.c \
+		ft_turk.c \
+		ft_utils.c \
+		ft_utils_debug.c
 
 OBJS = $(SRCS:.c=.o)
 

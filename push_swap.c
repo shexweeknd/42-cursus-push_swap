@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/13 14:53:17 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:19:07 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ size_t	ft_contentlen(void **list)
 	return (len);
 }
 
-t_pile	*init_pile(void)
-{
-	t_pile	*first_elem;
-
-	first_elem = malloc(sizeof(t_pile *));
-	if (!first_elem)
-		return (NULL);
-	first_elem->next = NULL;
-	first_elem->prev = NULL;
-	return (first_elem);
-}
-
 void	print_pile(t_pile **pile)
 {
 	t_pile	*first_elem;
@@ -41,56 +29,11 @@ void	print_pile(t_pile **pile)
 	first_elem = *pile;
 	while ((*pile))
 	{
-		printf("%ld\n", (*pile)->value);
+		printf("%ld\n", *(*pile)->value);
 		*pile = (*pile)->next;
 	}
 	*pile = first_elem;
 	return ;
-}
-
-void	free_pile(t_pile **pile)
-{
-	t_pile	*suivant;
-	t_pile	**sauvegarde;
-
-	sauvegarde = pile;
-	while (*pile)
-	{
-		suivant = (*pile)->next;
-		free(*pile);
-		*pile = suivant;
-	}
-	return (free(sauvegarde));
-}
-
-/**
- * @brief TODO debug pour prendre en compte number = 0
- *
- * @param elem
- * @param number
- * @return int
- * @date 2024-06-08
- */
-int	ft_pileadd_back(t_pile *elem, long number, int current_cursor,
-		int last_cursor)
-{
-	while (elem)
-	{
-		if (elem->next == NULL)
-			break ;
-		elem = elem->next;
-	}
-	if (current_cursor && (current_cursor < last_cursor))
-	{
-		elem->next = init_pile();
-		elem->next->prev = elem;
-		elem->next->value = number;
-	}
-	else if (current_cursor == 0)
-		elem->value = number;
-	else if (current_cursor >= last_cursor)
-		return (1);
-	return (1);
 }
 
 /**
@@ -113,7 +56,6 @@ size_t	get_twodim_size(char **splitted)
 }
 
 /**
-
 	* @brief combiner deux resultats de ft_split en un seul
 	tableau de char a 2 dimensions
  *
@@ -176,19 +118,6 @@ t_pile	*verify_argv(char **argv)
 	return (first_elem);
 }
 
-t_pile	*create_random_pile(size_t pile_size)
-{
-	t_pile	*pile;
-	int		total_pile_size;
-
-	pile = init_pile();
-	total_pile_size = 0;
-	while (pile_size < total_pile_size)
-		ft_pileadd_back(pile, (getpid() * pile_size) % 100, pile_size++,
-			total_pile_size);
-	return (pile);
-}
-
 size_t	get_args_numbers(char *argv)
 {
 	size_t	result;
@@ -222,13 +151,13 @@ int	ft_is_sorted(t_pile *pile)
 {
 	int	temp;
 
-	temp = pile->value;
+	temp = *pile->value;
 	pile = pile->next;
 	while (pile)
 	{
-		if (pile->value < temp)
+		if (*pile->value < temp)
 			return (0);
-		temp = pile->value;
+		temp = *pile->value;
 		pile = pile->next;
 	}
 	return (1);
@@ -252,7 +181,7 @@ int	ft_has_duplicates(t_pile *pile)
 		cursor = temp->next;
 		while (cursor)
 		{
-			if (temp->value == cursor->value)
+			if (*temp->value == *cursor->value)
 				return (1);
 			cursor = cursor->next;
 		}
@@ -272,31 +201,11 @@ int	ft_has_greater_than(t_pile *pile, long long to_compare)
 {
 	while (pile)
 	{
-		if (pile->value > to_compare)
+		if (*pile->value > to_compare)
 			return (1);
 		pile = pile->next;
 	}
 	return (0);
-}
-
-/**
- * @brief retourne la taille de la pile
- *
- * @param pile
- * @return size_t
- * @date 2024-06-10
- */
-size_t	get_pile_size(t_pile *pile)
-{
-	size_t	result;
-
-	result = 0;
-	while (pile)
-	{
-		result++;
-		pile = pile->next;
-	}
-	return (result);
 }
 
 /**
@@ -313,9 +222,9 @@ void	mini_sort(t_pile **a)
 
 	while (!ft_is_sorted(*a))
 	{
-		premier = (*a)->value;
-		deuxieme = (*a)->next->value;
-		troisieme = (*a)->next->next->value;
+		premier = *(*a)->value;
+		deuxieme = *(*a)->next->value;
+		troisieme = *(*a)->next->next->value;
 		if ((troisieme > premier) && (troisieme > deuxieme))
 			sa(a);
 		else if ((premier > deuxieme) && (premier > troisieme))
@@ -326,79 +235,21 @@ void	mini_sort(t_pile **a)
 }
 
 /**
+ * @brief
+ * 	1 - push les deux premiers elements
+ * 	2 - set_target:
+	target de A dans B est le plus petit
+	proche de A sinon Le plus grand et
+	directement push dans B
 
-	* @brief TODEBUG and TOVERIFY modifier ces deux fonctions pour s'adapter au contexte
- *
- * @param head
- * @param target
- * @return int TODO doit retourner l'adresse de l'element de la pile
- * @date 2024-06-13
- */
-t_pile	*find_closest(t_pile *head, t_pile *target)
-{
-	t_pile	*closest;
-	long	target_value;
-	t_pile	*current;
+	3 - get_cost de effectuer les operations en fonction du cout
 
-	if (!head || !target)
-		return (NULL);
-	closest = head;
-	target_value = target->value;
-	current = head->next;
-	while (current)
-	{
-		if (labs(current->value - target_value) < labs(closest->value
-				- target_value))
-		{
-			closest = current;
-		}
-		else if (labs(current->value - target_value) == labs(closest->value
-				- target_value) && current->value < closest->value)
-		{
-			closest = current;
-		}
-		current = current->next;
-	}
-	return (closest);
-}
+	4 - faire un minisort de A
 
-// TODO Fonction pour trouver le plus petit nombre parmi les plus proches de chaque liste chaînée
-t_pile	*find_smallest_closest(t_pile **lists, int num_lists, t_pile **target)
-{
-	t_pile	*smallest_closest;
-	t_pile	*closest;
+	5 - set_target inverse puis push dans A
 
-	smallest_closest = NULL;
-	for (int i = 0; i < num_lists; i++)
-	{
-		closest = find_closest(lists[i], *target);
-		if (!smallest_closest || (closest
-				&& closest->value < smallest_closest->value))
-		{
-			smallest_closest = closest;
-		}
-	}
-	return (smallest_closest);
-}
-
-/**
- * @brief TODO cette fonction va calculer et assigner les targets de pile a
- *
- * @param a
- * @param b
- * @date 2024-06-13
- */
-// liste de test 99 0 25 -38 10 7 42
-void	compute_target(t_pile **a, t_pile **b)
-{
-	t_pile	*addr;
-
-	addr = find_smallest_closest(a, (*a)->value, b);
-	printf("La target de: %ld est: %ld\n", (*a)->value, addr->value);
-}
-
-/**
- * @brief TODO sert a faire un sorting avec l'algorithme TURK
+	6 - reverse rotate jusqu'a ce que le plus
+		petit de A soit au top de A
  *
  * @param a
  * @date 2024-06-12
@@ -408,7 +259,7 @@ void	big_sort(t_pile **a)
 	t_pile	**b;
 	int		index;
 
-	b = malloc(sizeof(t_pile **));
+	b = (t_pile **)malloc(sizeof(t_pile **));
 	if (!b)
 	{
 		free_pile(a);
@@ -417,7 +268,9 @@ void	big_sort(t_pile **a)
 	index = 2;
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
-	compute_target(a, b);
+	set_a_target(a, b);
+	print_targets(a);
+	free_pile(a);
 	free_pile(b);
 }
 
