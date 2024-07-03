@@ -282,6 +282,7 @@ void	big_sort(t_pile **a)
 			else
 				rra(a);
 		}
+		// faire en sorte que le cheapest target soit en top de b
 		set_position(b, cheapest->target);
 		pb(b, a);
 	}
@@ -291,6 +292,25 @@ void	big_sort(t_pile **a)
 	while (*b != NULL)
 	{
 		// TODO reviser l'algorithme turk puis pa(a, b)
+		if (*b->target->index > (get_pile_size(*a) / 2)
+			&& (*b->target->index != 1))
+		{
+			while (*a != *b->target)
+			{
+				rra(a);
+				set_index(a);
+			}
+		}
+		else if (*b->target->index < (get_pile_size(*a) / 2)
+			&& (*b->target->index != 1))
+		{
+			while (*a != *b->target)
+			{
+				ra(a);
+				set_index(a);
+			}
+		}
+		pa(a, b);
 	}
 	// TODO mettre le plus petit dans a au dessus en faisant rra
 	min = get_min_in(*a);
