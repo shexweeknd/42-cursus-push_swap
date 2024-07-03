@@ -12,6 +12,18 @@
 
 #include "push_swap.h"
 
+void	ft_bezero(long *data, int pile_size)
+{
+	int	index;
+
+	index = 0;
+	while (index < pile_size)
+	{
+		data[index] = 0;
+		index++;
+	}
+}
+
 /**
  * @brief retourne la taille de la pile
  *

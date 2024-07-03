@@ -32,7 +32,6 @@ void	sa(int argc, char **argv)
 		return (write(1, "Error\n", 6), 1);
 	ft_printf("Pile a: \n");
 	print_pile(a);
-	// sa(a);
 	ft_printf("\nFinal value of pile a: \n");
 	print_pile(a);
 	free_pile(a);

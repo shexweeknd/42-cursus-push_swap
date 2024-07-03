@@ -47,13 +47,14 @@ void				rr(t_pile **a, t_pile **b);
 void				rrr(t_pile **a, t_pile **b);
 
 // algo turk utils
-void				set_a_target(t_pile **a, t_pile **b);
-void				set_b_target(t_pile **a, t_pile **b);
+int					set_a_target(t_pile **a, t_pile **b);
+int					set_b_target(t_pile **a, t_pile **b);
 
 // fonctions utils
 size_t				get_pile_size(t_pile *pile);
 void				free_pile(t_pile **pile);
 t_pile				*init_pile(void);
+void				ft_bezero(long *data, int pile_size);
 
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);

@@ -12,27 +12,29 @@
 
 #include "push_swap.h"
 
-t_pile	*get_target_from_array(t_pile *pile, long *tab)
+t_pile	*get_target_from_array(t_pile *pile, long *tab, int array_size)
 {
 	long	max;
 	t_pile	*result;
 
 	max = -1;
-	if (!*tab)
+	if (!array_size)
 		return (NULL);
-	while (*tab)
+	while (array_size--)
 	{
 		if (*tab > max)
 			max = *tab;
 		tab++;
 	}
 	if (max >= 0)
+	{
 		while (pile)
 		{
 			if (*pile->value == max)
 				return (pile);
 			pile = pile->next;
 		}
+	}
 	return (NULL);
 }
 
@@ -50,16 +52,18 @@ t_pile	*get_max_in(t_pile *pile)
 		cursor = cursor->next;
 	}
 	if (max >= 0)
+	{
 		while (pile)
 		{
 			if (*pile->value == max)
 				return (pile);
 			pile = pile->next;
 		}
+	}
 	return (NULL);
 }
 
-void	set_a_target(t_pile **a, t_pile **b)
+int	set_a_target(t_pile **a, t_pile **b)
 {
 	t_pile	*curr_a;
 	t_pile	*curr_b;
@@ -67,40 +71,30 @@ void	set_a_target(t_pile **a, t_pile **b)
 	int		index;
 
 	if (!*a || !*b)
-		return ;
+		return (-1);
 	curr_a = *a;
-	temp = malloc(sizeof(long) * get_pile_size(curr_b));
+	temp = malloc(sizeof(long) * get_pile_size(*b));
 	if (!temp)
-	{
-		free_pile(a);
-		free_pile(b);
-		return ;
-	}
+		return (free_pile(a), free_pile(b), -1);
 	while (curr_a)
 	{
 		curr_b = *b;
 		index = 0;
+		ft_bezero(temp, get_pile_size(*b));
 		while (curr_b)
 		{
 			if (*curr_b->value < *curr_a->value)
-				temp[index] = *curr_b->value;
+				temp[index++] = *curr_b->value;
 			curr_b = curr_b->next;
-			index++;
 		}
-		// mettre dans target de curr_a l'adresse de celui qui a la valeur < curr_value mais aussi
-		curr_a->target = get_target_from_array(*b, temp);
+		curr_a->target = get_target_from_array(*b, temp, get_pile_size(*b));
 		if (!curr_a->target)
 			curr_a->target = get_max_in(*b);
 		if (curr_a->target == NULL)
-		{
-			free_pile(a);
-			free_pile(b);
-			free(temp);
-			return ;
-		}
+			return (free_pile(a), free_pile(b), free(temp), -1);
 		curr_a = curr_a->next;
 	}
-	free(temp);
+	return (free(temp), -1);
 }
 
-void	set_a_target(t_pile **a, t_pile **b);
+int		set_b_target(t_pile **a, t_pile **b);
