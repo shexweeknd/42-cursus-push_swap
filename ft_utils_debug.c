@@ -43,7 +43,7 @@ t_pile	*create_random_pile(size_t pile_size)
 	t_pile	*pile;
 	int		cursor;
 
-	pile = init_pile();
+	pile = init_pile(0);
 	cursor = 0;
 	while (cursor < pile_size)
 	{

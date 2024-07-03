@@ -94,7 +94,22 @@ int	set_a_target(t_pile **a, t_pile **b)
 			return (free_pile(a), free_pile(b), free(temp), -1);
 		curr_a = curr_a->next;
 	}
-	return (free(temp), -1);
+	return (free(temp), 0);
+}
+
+int	set_index(t_pile **pile)
+{
+	int	i;
+
+	if (!*pile)
+		return (-1);
+	i = 1;
+	while (*pile)
+	{
+		(*pile)->index = i++;
+		*pile = (*pile)->next;
+	}
+	return (0);
 }
 
 int		set_b_target(t_pile **a, t_pile **b);

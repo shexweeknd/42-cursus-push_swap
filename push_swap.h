@@ -27,6 +27,7 @@ typedef struct s_pile
 	struct s_pile	*next;
 	struct s_pile	*prev;
 	struct s_pile	*target;
+	int				index;
 	int				cost;
 }					t_pile;
 
@@ -53,8 +54,9 @@ int					set_b_target(t_pile **a, t_pile **b);
 // fonctions utils
 size_t				get_pile_size(t_pile *pile);
 void				free_pile(t_pile **pile);
-t_pile				*init_pile(void);
+t_pile				*init_pile(long value);
 void				ft_bezero(long *data, int pile_size);
+void				ft_pile_delone(t_pile **a);
 
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);

@@ -62,13 +62,9 @@ void	pb(t_pile **b, t_pile **a)
 	if (!*a)
 		return ;
 	if ((*a)->next)
-	{
 		second_elem_a = (*a)->next;
-	}
 	else
-	{
 		second_elem_a = NULL;
-	}
 	first_elem_b->prev = first_elem_a;
 	first_elem_a->next = first_elem_b;
 	if (second_elem_a)

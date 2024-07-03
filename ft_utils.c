@@ -60,7 +60,7 @@ void	free_pile(t_pile **pile)
 	return (free(sauvegarde));
 }
 
-t_pile	*init_pile(void)
+t_pile	*init_pile(long value)
 {
 	t_pile	*first_elem;
 
@@ -72,8 +72,10 @@ t_pile	*init_pile(void)
 	first_elem->value = (long *)malloc(sizeof(long));
 	if (!first_elem->value)
 		return (free(first_elem), NULL);
+	*first_elem->value = value;
 	first_elem->target = NULL;
-	first_elem->cost = 0;
+	first_elem->index = -1;
+	first_elem->cost = -1;
 	return (first_elem);
 }
 
@@ -96,7 +98,7 @@ int	ft_pileadd_back(t_pile *elem, long number, int current_cursor,
 	}
 	if (current_cursor && (current_cursor < last_cursor))
 	{
-		elem->next = init_pile();
+		elem->next = init_pile(0);
 		elem->next->prev = elem;
 		*elem->next->value = number;
 	}
@@ -105,4 +107,17 @@ int	ft_pileadd_back(t_pile *elem, long number, int current_cursor,
 	else if (current_cursor >= last_cursor)
 		return (1);
 	return (1);
+}
+
+void	ft_pile_delone(t_pile **a)
+{
+	t_pile	*first_elem_a;
+	t_pile	*second_elem_a;
+
+	first_elem_a = *a;
+	second_elem_a = (*a)->next;
+	second_elem_a->prev = NULL;
+	free(first_elem_a->value);
+	free(first_elem_a);
+	*a = second_elem_a;
 }

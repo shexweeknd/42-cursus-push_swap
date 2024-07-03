@@ -98,7 +98,7 @@ t_pile	*verify_argv(char **argv)
 	size_t	array_size;
 	int		current_cursor;
 
-	first_elem = init_pile();
+	first_elem = init_pile(0);
 	array = NULL;
 	if (!first_elem)
 		return (NULL);
@@ -256,16 +256,15 @@ void	mini_sort(t_pile **a)
  */
 void	big_sort(t_pile **a)
 {
-	t_pile	**b;
 	int		index;
+	t_pile	**b;
 
-	b = (t_pile **)malloc(sizeof(t_pile **));
+	b = (t_pile **)malloc(sizeof(t_pile *));
 	if (!b)
-	{
-		free_pile(a);
 		return ;
-	}
-	index = 2;
+	*b = init_pile(*(*a)->value);
+	ft_pile_delone(a);
+	index = 1;
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
 	set_a_target(a, b);
@@ -300,7 +299,7 @@ int	main(int argc, char **argv)
 	t_pile	**b;
 	int		i;
 
-	a = malloc(sizeof(t_pile **));
+	a = (t_pile **)malloc(sizeof(t_pile *));
 	if (!a)
 		return (write(1, "Erreur d'allocation de la pile\n", 31), 1);
 	if (!(argc >= 2) && (argc != 1))
@@ -318,13 +317,6 @@ int	main(int argc, char **argv)
 		return (free_pile(a), write(1, "Error\n", 6), 0);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
-	// push_swap(a);
-	b = malloc(sizeof(t_pile **));
-	if (!a)
-		return (free_pile(a), free_pile(b), write(1,
-				"Erreur d'allocation de la pile\n", 31), 1);
-	*b = create_random_pile(4);
-	print_pile(b);
-	set_a_target(a, b);
-	return (print_targets(a), free_pile(a), free_pile(b), 0);
+	push_swap(a);
+	return (0);
 }
