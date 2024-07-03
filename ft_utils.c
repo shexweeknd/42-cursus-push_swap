@@ -109,7 +109,7 @@ int	ft_pileadd_back(t_pile *elem, long number, int current_cursor,
 	return (1);
 }
 
-void	ft_pile_delone(t_pile **a)
+void	ft_pile_delfirst(t_pile **a)
 {
 	t_pile	*first_elem_a;
 	t_pile	*second_elem_a;

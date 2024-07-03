@@ -38,27 +38,68 @@ t_pile	*get_target_from_array(t_pile *pile, long *tab, int array_size)
 	return (NULL);
 }
 
-t_pile	*get_max_in(t_pile *pile)
+t_pile	*get_max_value_in(t_pile *pile)
 {
 	long	max;
 	t_pile	*cursor;
 
 	cursor = pile;
-	max = -1;
+	max = *cursor->value;
 	while (cursor)
 	{
 		if (*cursor->value > max)
 			max = *cursor->value;
 		cursor = cursor->next;
 	}
-	if (max >= 0)
+	while (pile)
 	{
-		while (pile)
-		{
-			if (*pile->value == max)
-				return (pile);
-			pile = pile->next;
-		}
+		if (*pile->value == max)
+			return (pile);
+		pile = pile->next;
+	}
+	return (NULL);
+}
+
+t_pile	*get_min_value_in(t_pile *pile)
+{
+	long	min;
+	t_pile	*cursor;
+
+	cursor = pile;
+	min = *cursor->value;
+	while (cursor)
+	{
+		if (*cursor->value < min)
+			min = *cursor->value;
+		cursor = cursor->next;
+	}
+	while (pile)
+	{
+		if (*pile->value == min)
+			return (pile);
+		pile = pile->next;
+	}
+	return (NULL);
+}
+
+t_pile	*get_min_cost_in(t_pile *pile)
+{
+	int		min;
+	t_pile	*cursor;
+
+	cursor = pile;
+	min = *cursor->cost;
+	while (cursor)
+	{
+		if (*cursor->cost < min)
+			min = *cursor->cost;
+		cursor = cursor->next;
+	}
+	while (pile)
+	{
+		if (*pile->cost == min)
+			return (pile);
+		pile = pile->next;
 	}
 	return (NULL);
 }

@@ -258,17 +258,49 @@ void	big_sort(t_pile **a)
 {
 	int		index;
 	t_pile	**b;
+	t_pile	*min;
+	t_pile	*cheapest;
 
 	b = (t_pile **)malloc(sizeof(t_pile *));
 	if (!b)
 		return ;
 	*b = init_pile(*(*a)->value);
-	ft_pile_delone(a);
+	ft_pile_delfirst(a);
 	index = 1;
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
 	set_a_target(a, b);
-	print_targets(a);
+	// TODO calcul de couts puis push dans b tant que get_pile_size(*a) > 3
+	while (get_pile_size(*a) > 3)
+	{
+		set_costs(*a, *b);
+		cheapest = get_min_cost_in(*a);
+		while (cheapest != *a)
+		{
+			if (cheapest->index > (get_pile_size(*a) / 2))
+				ra(a);
+			else
+				rra(a);
+		}
+		set_position(b, cheapest->target);
+		pb(b, a);
+	}
+	mini_sort(a);
+	// TODO push back dans la pile a avec set_b_target
+	set_b_target(a, b);
+	while (*b != NULL)
+	{
+		// TODO reviser l'algorithme turk puis pa(a, b)
+	}
+	// TODO mettre le plus petit dans a au dessus en faisant rra
+	min = get_min_in(*a);
+	while (*a != min)
+	{
+		if (min->index > (get_pile_size(*a) / 2))
+			rra(a);
+		else
+			ra(a);
+	}
 	free_pile(a);
 	free_pile(b);
 }
