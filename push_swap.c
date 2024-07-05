@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/05 14:25:56 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:48:55 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,7 @@ void	big_sort(t_pile **a)
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
 	set_a_target(a, b);
+	print_targets(a);
 	// TODO calcul de couts puis push dans b tant que get_pile_size(*a) > 3
 	while (get_pile_size(*a) > 3)
 	{
@@ -287,8 +288,13 @@ void	big_sort(t_pile **a)
 		pb(b, a);
 	}
 	mini_sort(a);
-	// TODO push back dans la pile a avec set_b_target
+	write(1, "a sorted:\n", 10);
+	print_pile(a);
+	// TODEBUG push back dans la pile a avec set_b_target
 	set_b_target(a, b);
+	write(1, "----\n", 5);
+	write(1, "b targets: \n", 12);
+	print_targets(b);
 	while (*b != NULL)
 	{
 		// TODO reviser l'algorithme turk puis pa(a, b)

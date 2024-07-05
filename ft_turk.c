@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/05 14:27:31 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:46:12 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	set_a_target(t_pile **a, t_pile **b)
 				temp[index++] = *curr_b->value;
 			curr_b = curr_b->next;
 		}
-		curr_a->target = get_max_target_from_array(*b, temp, get_pile_size(*b));
+		curr_a->target = get_max_target_from_array(*b, temp, index);
 		if (!curr_a->target)
 			curr_a->target = get_max_value_in(*b);
 		if (curr_a->target == NULL)
@@ -182,7 +182,7 @@ int	set_b_target(t_pile **a, t_pile **b)
 				temp[index++] = *curr_a->value;
 			curr_a = curr_a->next;
 		}
-		curr_b->target = get_min_target_from_array(*a, temp, get_pile_size(*a));
+		curr_b->target = get_min_target_from_array(*a, temp, index);
 		if (!curr_b->target)
 			curr_b->target = get_min_value_in(*a);
 		if (curr_b->target == NULL)
