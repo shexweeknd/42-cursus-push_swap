@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 16:47:03 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:25:56 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,19 +292,19 @@ void	big_sort(t_pile **a)
 	while (*b != NULL)
 	{
 		// TODO reviser l'algorithme turk puis pa(a, b)
-		if (*b->target->index > (get_pile_size(*a) / 2)
-			&& (*b->target->index != 1))
+		if ((*b)->target->index > (get_pile_size(*a) / 2)
+			&& ((*b)->target->index != 1))
 		{
-			while (*a != *b->target)
+			while (*a != (*b)->target)
 			{
 				rra(a);
 				set_index(a);
 			}
 		}
-		else if (*b->target->index < (get_pile_size(*a) / 2)
-			&& (*b->target->index != 1))
+		else if ((*b)->target->index < (get_pile_size(*a) / 2)
+			&& ((*b)->target->index != 1))
 		{
-			while (*a != *b->target)
+			while (*a != (*b)->target)
 			{
 				ra(a);
 				set_index(a);
@@ -313,9 +313,10 @@ void	big_sort(t_pile **a)
 		pa(a, b);
 	}
 	// TODO mettre le plus petit dans a au dessus en faisant rra
-	min = get_min_in(*a);
+	min = get_min_value_in(*a);
 	while (*a != min)
 	{
+		set_index(a);
 		if (min->index > (get_pile_size(*a) / 2))
 			rra(a);
 		else

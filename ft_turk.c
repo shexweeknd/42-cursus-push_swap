@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_turk.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 14:16:54 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:27:31 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_pile	*get_target_from_array(t_pile *pile, long *tab, int array_size)
+t_pile	*get_max_target_from_array(t_pile *pile, long *tab, int array_size)
 {
 	long	max;
 	t_pile	*result;
 
-	max = -1;
+	max = *tab;
 	if (!array_size)
 		return (NULL);
 	while (array_size--)
@@ -26,14 +26,34 @@ t_pile	*get_target_from_array(t_pile *pile, long *tab, int array_size)
 			max = *tab;
 		tab++;
 	}
-	if (max >= 0)
+	while (pile)
 	{
-		while (pile)
-		{
-			if (*pile->value == max)
-				return (pile);
-			pile = pile->next;
-		}
+		if (*pile->value == max)
+			return (pile);
+		pile = pile->next;
+	}
+	return (NULL);
+}
+
+t_pile	*get_min_target_from_array(t_pile *pile, long *tab, int array_size)
+{
+	long	min;
+	t_pile	*result;
+
+	min = *tab;
+	if (!array_size)
+		return (NULL);
+	while (array_size--)
+	{
+		if (*tab < min)
+			min = *tab;
+		tab++;
+	}
+	while (pile)
+	{
+		if (*pile->value == min)
+			return (pile);
+		pile = pile->next;
 	}
 	return (NULL);
 }
@@ -88,16 +108,16 @@ t_pile	*get_min_cost_in(t_pile *pile)
 	t_pile	*cursor;
 
 	cursor = pile;
-	min = *cursor->cost;
+	min = cursor->cost;
 	while (cursor)
 	{
-		if (*cursor->cost < min)
-			min = *cursor->cost;
+		if (cursor->cost < min)
+			min = cursor->cost;
 		cursor = cursor->next;
 	}
 	while (pile)
 	{
-		if (*pile->cost == min)
+		if (pile->cost == min)
 			return (pile);
 		pile = pile->next;
 	}
@@ -128,12 +148,46 @@ int	set_a_target(t_pile **a, t_pile **b)
 				temp[index++] = *curr_b->value;
 			curr_b = curr_b->next;
 		}
-		curr_a->target = get_target_from_array(*b, temp, get_pile_size(*b));
+		curr_a->target = get_max_target_from_array(*b, temp, get_pile_size(*b));
 		if (!curr_a->target)
-			curr_a->target = get_max_in(*b);
+			curr_a->target = get_max_value_in(*b);
 		if (curr_a->target == NULL)
 			return (free_pile(a), free_pile(b), free(temp), -1);
 		curr_a = curr_a->next;
+	}
+	return (free(temp), 0);
+}
+
+int	set_b_target(t_pile **a, t_pile **b)
+{
+	t_pile	*curr_a;
+	t_pile	*curr_b;
+	long	*temp;
+	int		index;
+
+	if (!*a || !*b)
+		return (-1);
+	curr_b = *b;
+	temp = malloc(sizeof(long) * get_pile_size(*a));
+	if (!temp)
+		return (free_pile(a), free_pile(b), -1);
+	while (curr_b)
+	{
+		curr_a = *a;
+		index = 0;
+		ft_bezero(temp, get_pile_size(*a));
+		while (curr_a)
+		{
+			if (*curr_a->value > *curr_b->value)
+				temp[index++] = *curr_a->value;
+			curr_a = curr_a->next;
+		}
+		curr_b->target = get_min_target_from_array(*a, temp, get_pile_size(*a));
+		if (!curr_b->target)
+			curr_b->target = get_min_value_in(*a);
+		if (curr_b->target == NULL)
+			return (free_pile(a), free_pile(b), free(temp), -1);
+		curr_b = curr_b->next;
 	}
 	return (free(temp), 0);
 }
@@ -153,4 +207,34 @@ int	set_index(t_pile **pile)
 	return (0);
 }
 
-int		set_b_target(t_pile **a, t_pile **b);
+void	set_costs(t_pile *a, t_pile *b)
+{
+	int	pile_b_size;
+	int	pile_a_size;
+
+	pile_a_size = get_pile_size(a);
+	pile_b_size = get_pile_size(b);
+	while (a)
+	{
+		a->cost = ft_abs(a->index - pile_a_size) + ft_abs(a->target->index
+				- pile_b_size);
+		a = a->next;
+	}
+}
+
+void	set_position(t_pile **pile, t_pile *target)
+{
+	int	pile_size;
+
+	pile_size = get_pile_size(*pile);
+	if (target->index > (pile_size / 2))
+	{
+		while (*pile != target)
+			rrb(pile);
+	}
+	else
+	{
+		while (*pile != target)
+			rb(pile);
+	}
+}

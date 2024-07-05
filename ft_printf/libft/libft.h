@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:20:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/10 11:09:17 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:03:01 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_list
 }					t_list;
 
 /*Partie 1 - libc*/
+long				ft_abs(int number);
 int					ft_atoi(const char *str);
 long				ft_atol(const char *str);
 void				ft_bzero(void *s, size_t n);

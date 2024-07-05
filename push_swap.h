@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 16:12:26 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:23:39 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void				rrr(t_pile **a, t_pile **b);
 // algo turk utils
 int					set_a_target(t_pile **a, t_pile **b);
 int					set_b_target(t_pile **a, t_pile **b);
+void				set_costs(t_pile *a, t_pile *b);
+void				set_position(t_pile **pile, t_pile *target);
+int					set_index(t_pile **pile);
+t_pile				*get_min_cost_in(t_pile *pile);
+t_pile				*get_min_value_in(t_pile *pile);
 
 // fonctions utils
 size_t				get_pile_size(t_pile *pile);
