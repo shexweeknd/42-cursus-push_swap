@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 14:31:38 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:46:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,58 +234,27 @@ void	mini_sort(t_pile **a)
 	}
 }
 
-/**
- * @brief
- * 	1 - push les deux premiers elements
- * 	2 - set_target:
-	target de A dans B est le plus petit
-	proche de A sinon Le plus grand et
-	directement push dans B
-
-	3 - get_cost de effectuer les operations en fonction du cout
-
-	4 - faire un minisort de A
-
-	5 - set_target inverse puis push dans A
-
-	6 - reverse rotate jusqu'a ce que le plus
-		petit de A soit au top de A
- *
- * @param a
- * @date 2024-06-12
- */
-void	big_sort(t_pile **a)
+void	phase_one(t_pile **a, t_pile **b)
 {
-	int		index;
-	t_pile	**b;
-	t_pile	*min;
-	t_pile	*cheapest;
-
-	b = (t_pile **)malloc(sizeof(t_pile *));
-	if (!b)
-		return ;
-	*b = init_pile(*(*a)->value);
-	ft_pile_delfirst(a);
-	index = 1;
-	while ((get_pile_size(*a) > 3) && index--)
-		pb(b, a);
 	while (get_pile_size(*a) > 3)
 	{
 		set_a_target(a, b);
 		set_index(a);
 		set_costs(*a, *b);
-		cheapest = get_min_cost_in(*a);
-		while (cheapest != *a)
+		while (get_min_cost_in(*a) != *a)
 		{
-			if (cheapest->index > (get_pile_size(*a) / 2))
+			if (get_min_cost_in(*a)->index > (get_pile_size(*a) / 2))
 				rra(a);
 			else
 				ra(a);
 		}
-		set_position(b, cheapest->target);
+		set_position(b, get_min_cost_in(*a)->target);
 		pb(b, a);
 	}
-	mini_sort(a);
+}
+
+void	phase_two(t_pile **a, t_pile **b)
+{
 	while (*b != NULL)
 	{
 		set_b_target(a, b);
@@ -299,7 +268,10 @@ void	big_sort(t_pile **a)
 		}
 		pa(a, b);
 	}
-	min = get_min_value_in(*a);
+}
+
+void	phase_three(t_pile **a, t_pile *min)
+{
 	while (*a != min)
 	{
 		set_index(a);
@@ -308,6 +280,25 @@ void	big_sort(t_pile **a)
 		else
 			ra(a);
 	}
+}
+
+void	big_sort(t_pile **a)
+{
+	int		index;
+	t_pile	**b;
+
+	b = (t_pile **)malloc(sizeof(t_pile *));
+	if (!b)
+		return ;
+	*b = init_pile(*(*a)->value);
+	ft_pile_delfirst(a);
+	index = 1;
+	while ((get_pile_size(*a) > 3) && index--)
+		pb(b, a);
+	phase_one(a, b);
+	mini_sort(a);
+	phase_two(a, b);
+	phase_three(a, get_min_value_in(*a));
 	free_pile(a);
 	free_pile(b);
 }
@@ -358,6 +349,5 @@ int	main(int argc, char **argv)
 		return (free_pile(a), write(2, "Error\n", 6), 0);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
-	push_swap(a);
-	return (0);
+	return (push_swap(a), 0);
 }

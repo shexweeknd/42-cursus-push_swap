@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 11:30:52 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:47:35 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int	set_a_target(t_pile **a, t_pile **b)
 	return (free(temp), 0);
 }
 
+/** todo remove 06 lines from code */
 int	set_b_target(t_pile **a, t_pile **b)
 {
 	t_pile	*curr_a;
