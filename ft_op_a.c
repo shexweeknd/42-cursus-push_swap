@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_op_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:37:59 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/11 09:02:00 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:28:35 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,15 @@ void	pa(t_pile **a, t_pile **b)
 	if (!*b)
 		return ;
 	if ((*b)->next)
-	{
 		second_elem_b = (*b)->next;
-	}
 	else
-	{
 		second_elem_b = NULL;
-	}
 	first_elem_a->prev = first_elem_b;
 	first_elem_b->next = first_elem_a;
 	if (second_elem_b)
 		second_elem_b->prev = NULL;
 	*a = first_elem_b;
-	if (second_elem_b)
-		*b = second_elem_b;
+	*b = second_elem_b;
 	write(1, "pa\n", 3);
 }
 

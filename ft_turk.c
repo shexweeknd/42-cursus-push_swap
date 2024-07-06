@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/05 14:46:12 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:30:52 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,15 +194,17 @@ int	set_b_target(t_pile **a, t_pile **b)
 
 int	set_index(t_pile **pile)
 {
-	int	i;
+	int		i;
+	t_pile	*curr;
 
-	if (!*pile)
+	curr = *pile;
+	if (!curr)
 		return (-1);
 	i = 1;
-	while (*pile)
+	while (curr)
 	{
-		(*pile)->index = i++;
-		*pile = (*pile)->next;
+		curr->index = i++;
+		curr = curr->next;
 	}
 	return (0);
 }

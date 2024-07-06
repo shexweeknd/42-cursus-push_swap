@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_op_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/06/13 08:53:31 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:28:41 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ void	pb(t_pile **b, t_pile **a)
 	if (second_elem_a)
 		second_elem_a->prev = NULL;
 	*b = first_elem_a;
-	if (second_elem_a)
-		*a = second_elem_a;
+	*a = second_elem_a;
 	write(1, "pb\n", 3);
 }
 

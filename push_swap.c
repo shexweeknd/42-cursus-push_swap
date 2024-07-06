@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/05 14:48:55 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:31:59 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,11 +269,11 @@ void	big_sort(t_pile **a)
 	index = 1;
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
-	set_a_target(a, b);
-	print_targets(a);
 	// TODO calcul de couts puis push dans b tant que get_pile_size(*a) > 3
 	while (get_pile_size(*a) > 3)
 	{
+		set_a_target(a, b);
+		print_targets(a);
 		set_costs(*a, *b);
 		cheapest = get_min_cost_in(*a);
 		while (cheapest != *a)
@@ -297,28 +297,18 @@ void	big_sort(t_pile **a)
 	print_targets(b);
 	while (*b != NULL)
 	{
-		// TODO reviser l'algorithme turk puis pa(a, b)
-		if ((*b)->target->index > (get_pile_size(*a) / 2)
-			&& ((*b)->target->index != 1))
+		set_index(a);
+		while ((*b)->target != *a)
 		{
-			while (*a != (*b)->target)
-			{
+			if ((*b)->target->index > (get_pile_size(*a) / 2))
 				rra(a);
-				set_index(a);
-			}
-		}
-		else if ((*b)->target->index < (get_pile_size(*a) / 2)
-			&& ((*b)->target->index != 1))
-		{
-			while (*a != (*b)->target)
-			{
+			else
 				ra(a);
-				set_index(a);
-			}
 		}
 		pa(a, b);
 	}
 	// TODO mettre le plus petit dans a au dessus en faisant rra
+	printf("mettre le plus petit au dessus de la pile a\n");
 	min = get_min_value_in(*a);
 	while (*a != min)
 	{
@@ -328,6 +318,7 @@ void	big_sort(t_pile **a)
 		else
 			ra(a);
 	}
+	print_pile(a);
 	free_pile(a);
 	free_pile(b);
 }
