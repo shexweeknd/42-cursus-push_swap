@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 12:40:36 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:31:38 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,15 +269,12 @@ void	big_sort(t_pile **a)
 	index = 1;
 	while ((get_pile_size(*a) > 3) && index--)
 		pb(b, a);
-	// TODO calcul de couts puis push dans b tant que get_pile_size(*a) > 3
 	while (get_pile_size(*a) > 3)
 	{
 		set_a_target(a, b);
-		print_targets(a);
 		set_index(a);
 		set_costs(*a, *b);
 		cheapest = get_min_cost_in(*a);
-		printf("cheapest: %ld\n", *cheapest->value);
 		while (cheapest != *a)
 		{
 			if (cheapest->index > (get_pile_size(*a) / 2))
@@ -285,20 +282,13 @@ void	big_sort(t_pile **a)
 			else
 				ra(a);
 		}
-		// faire en sorte que le cheapest target soit en top de b
 		set_position(b, cheapest->target);
 		pb(b, a);
 	}
 	mini_sort(a);
-	write(1, "a sorted:\n", 10);
-	print_pile(a);
-	// TODEBUG push back dans la pile a avec set_b_target
 	while (*b != NULL)
 	{
 		set_b_target(a, b);
-		write(1, "----\n", 5);
-		write(1, "b targets: \n", 12);
-		print_targets(b);
 		set_index(a);
 		while ((*b)->target != *a)
 		{
@@ -309,8 +299,6 @@ void	big_sort(t_pile **a)
 		}
 		pa(a, b);
 	}
-	// TODO mettre le plus petit dans a au dessus en faisant rra
-	printf("mettre le plus petit au dessus de la pile a\n");
 	min = get_min_value_in(*a);
 	while (*a != min)
 	{
@@ -320,7 +308,6 @@ void	big_sort(t_pile **a)
 		else
 			ra(a);
 	}
-	print_pile(a);
 	free_pile(a);
 	free_pile(b);
 }
@@ -355,18 +342,20 @@ int	main(int argc, char **argv)
 	if (!a)
 		return (write(1, "Erreur d'allocation de la pile\n", 31), 1);
 	if (!(argc >= 2) && (argc != 1))
-		return (write(1, "Error\n", 6), 1);
+		return (free_pile(a), write(2, "Error\n", 6), 1);
 	if (argc == 2)
 		argc = get_args_numbers(argv[1]);
+	else if (argc == 1)
+		return (free_pile(a), 0);
 	else
 		argc -= 1;
 	i = 1;
 	while (argv[i])
 		if (!ft_isnumber(argv[i++]))
-			return (write(1, "Error\n", 6), 1);
+			return (free_pile(a), write(2, "Error\n", 6), 1);
 	*a = verify_argv(argv);
 	if (ft_has_duplicates(*a) || ft_has_greater_than(*a, INT_MAX))
-		return (free_pile(a), write(1, "Error\n", 6), 0);
+		return (free_pile(a), write(2, "Error\n", 6), 0);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
 	push_swap(a);
