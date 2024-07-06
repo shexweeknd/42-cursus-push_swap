@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 11:31:59 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:40:36 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,14 +274,16 @@ void	big_sort(t_pile **a)
 	{
 		set_a_target(a, b);
 		print_targets(a);
+		set_index(a);
 		set_costs(*a, *b);
 		cheapest = get_min_cost_in(*a);
+		printf("cheapest: %ld\n", *cheapest->value);
 		while (cheapest != *a)
 		{
 			if (cheapest->index > (get_pile_size(*a) / 2))
-				ra(a);
-			else
 				rra(a);
+			else
+				ra(a);
 		}
 		// faire en sorte que le cheapest target soit en top de b
 		set_position(b, cheapest->target);
@@ -291,12 +293,12 @@ void	big_sort(t_pile **a)
 	write(1, "a sorted:\n", 10);
 	print_pile(a);
 	// TODEBUG push back dans la pile a avec set_b_target
-	set_b_target(a, b);
-	write(1, "----\n", 5);
-	write(1, "b targets: \n", 12);
-	print_targets(b);
 	while (*b != NULL)
 	{
+		set_b_target(a, b);
+		write(1, "----\n", 5);
+		write(1, "b targets: \n", 12);
+		print_targets(b);
 		set_index(a);
 		while ((*b)->target != *a)
 		{
