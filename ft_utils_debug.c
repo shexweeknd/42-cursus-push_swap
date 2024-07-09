@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_debug.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 16:54:18 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:45:53 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	print_costs(t_pile **pile)
 		current = current->next;
 	}
 }
+
+void	print_pile(t_pile **pile)
+{
+	t_pile	*first_elem;
+
+	first_elem = *pile;
+	while ((*pile))
+	{
+		printf("%ld\n", *(*pile)->value);
+		*pile = (*pile)->next;
+	}
+	*pile = first_elem;
+	return ;
+}
+
 
 t_pile	*create_random_pile(size_t pile_size)
 {

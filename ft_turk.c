@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 14:47:35 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:58:48 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,66 @@ int	set_b_target(t_pile **a, t_pile **b)
 		curr_b = curr_b->next;
 	}
 	return (free(temp), 0);
+}
+
+t_chunk	*init_chunck(t_pile *pile)
+{
+	t_chunk	*result;
+	t_pile	*max;
+	t_pile	*min;
+
+	result = (t_chunk *)malloc(sizeof(t_chunk));
+	if (!result)
+		return (NULL);
+	min = get_min_value_in(pile);
+	max = get_max_value_in(pile);
+	result->lowest = ft_abs(*max->value - *min->value) / 2;
+	result->highest = *max->value;
+	return (result);
+}
+
+void	set_chunk(t_pile *pile, t_chunk *chunk)
+{
+	t_pile	*max;
+	t_pile	*min;
+
+	min = get_min_value_in(pile);
+	max = get_max_value_in(pile);
+	chunk->lowest = ft_abs(*max->value - *min->value) / 2;
+	chunk->highest = *max->value;
+}
+
+int	is_inside_chunk(t_pile *pile, t_chunk *chunk)
+{
+	int	result;
+
+	result = 0;
+	while (pile)
+	{
+		if (*pile->value >= chunk->lowest && *pile->value <= chunk->highest)
+			result = 1;
+		pile = pile->next;
+	}
+	return (result);
+}
+
+t_pile	*get_min_from_chunk(t_pile *pile, t_chunk *chunk)
+{
+	t_pile	*result;
+	long	*lowest;
+
+	result = NULL;
+	lowest = NULL;
+	while (pile)
+	{
+		if (*pile->value >= chunk->lowest && *pile->value <= chunk->highest)
+		{
+			if (result == NULL || *pile->value < *result->value)
+				result = pile;
+		}
+		pile = pile->next;
+	}
+	return (result);
 }
 
 int	set_index(t_pile **pile)

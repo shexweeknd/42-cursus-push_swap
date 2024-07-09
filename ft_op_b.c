@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 14:38:45 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:14:11 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	sb(t_pile **b)
 	write(1, "sb\n", 3);
 }
 
+void	create_first(t_pile **a, t_pile **b)
+{
+	t_pile	*first_elem_a;
+	t_pile	*second_elem_a;
+
+	first_elem_a = *a;
+	second_elem_a = NULL;
+	if ((*a)->next)
+		second_elem_a = (*a)->next;
+	*b = first_elem_a;
+	(*b)->next = NULL;
+	if (second_elem_a)
+		second_elem_a->prev = NULL;
+	*a = second_elem_a;
+}
+
 /**
  * @brief Prend le premier élément au sommet de a et le met sur b.
 Ne fait rien si a est vide.
@@ -57,6 +73,11 @@ void	pb(t_pile **b, t_pile **a)
 	t_pile	*first_elem_a;
 	t_pile	*second_elem_a;
 
+	if (!*b)
+	{
+		create_first(a, b);
+		return ;
+	}
 	first_elem_b = *b;
 	first_elem_a = *a;
 	if (!*a)

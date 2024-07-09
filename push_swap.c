@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/06 14:46:06 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:52:17 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ size_t	ft_contentlen(void **list)
 	while (*list++)
 		len++;
 	return (len);
-}
-
-void	print_pile(t_pile **pile)
-{
-	t_pile	*first_elem;
-
-	first_elem = *pile;
-	while ((*pile))
-	{
-		printf("%ld\n", *(*pile)->value);
-		*pile = (*pile)->next;
-	}
-	*pile = first_elem;
-	return ;
 }
 
 /**
@@ -234,26 +220,32 @@ void	mini_sort(t_pile **a)
 	}
 }
 
-void	phase_one(t_pile **a, t_pile **b)
+void	put_in_b(t_pile **a, t_pile **b)
 {
+	t_chunk	*chunk;
+	t_pile	*temp;
+
+	chunk = init_chunck(*a);
+	if (!chunk)
+		return ;
 	while (get_pile_size(*a) > 3)
 	{
-		set_a_target(a, b);
 		set_index(a);
-		set_costs(*a, *b);
-		while (get_min_cost_in(*a) != *a)
+		if (!is_inside_chunk(*a, chunk))
+			set_chunk(*a, chunk);
+		temp = get_min_from_chunk(*a, chunk);
+		while (temp != *a)
 		{
-			if (get_min_cost_in(*a)->index > (get_pile_size(*a) / 2))
+			if (temp->index > (get_pile_size(*a) / 2))
 				rra(a);
 			else
 				ra(a);
 		}
-		set_position(b, get_min_cost_in(*a)->target);
 		pb(b, a);
 	}
 }
 
-void	phase_two(t_pile **a, t_pile **b)
+void	put_in_a(t_pile **a, t_pile **b)
 {
 	while (*b != NULL)
 	{
@@ -270,7 +262,7 @@ void	phase_two(t_pile **a, t_pile **b)
 	}
 }
 
-void	phase_three(t_pile **a, t_pile *min)
+void	last_round(t_pile **a, t_pile *min)
 {
 	while (*a != min)
 	{
@@ -284,21 +276,18 @@ void	phase_three(t_pile **a, t_pile *min)
 
 void	big_sort(t_pile **a)
 {
-	int		index;
 	t_pile	**b;
 
 	b = (t_pile **)malloc(sizeof(t_pile *));
 	if (!b)
 		return ;
-	*b = init_pile(*(*a)->value);
-	ft_pile_delfirst(a);
-	index = 1;
-	while ((get_pile_size(*a) > 3) && index--)
-		pb(b, a);
-	phase_one(a, b);
+	*b = NULL;
+	put_in_b(a, b);
 	mini_sort(a);
-	phase_two(a, b);
-	phase_three(a, get_min_value_in(*a));
+	put_in_a(a, b);
+	last_round(a, get_min_value_in(*a));
+	// printf("\n");
+	// print_pile(a);
 	free_pile(a);
 	free_pile(b);
 }

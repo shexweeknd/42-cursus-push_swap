@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/05 14:23:39 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 09:46:03 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef struct s_pile
 	int				index;
 	int				cost;
 }					t_pile;
+
+typedef struct s_chunk
+{
+	long			lowest;
+	long			highest;
+}					t_chunk;
 
 // operations sur a
 void				sa(t_pile **a);
@@ -55,6 +61,10 @@ void				set_position(t_pile **pile, t_pile *target);
 int					set_index(t_pile **pile);
 t_pile				*get_min_cost_in(t_pile *pile);
 t_pile				*get_min_value_in(t_pile *pile);
+t_chunk				*init_chunck(t_pile *pile);
+void				set_chunk(t_pile *pile, t_chunk *chunk);
+int					is_inside_chunk(t_pile *pile, t_chunk *chunk);
+t_pile				*get_min_from_chunk(t_pile *pile, t_chunk *chunk);
 
 // fonctions utils
 size_t				get_pile_size(t_pile *pile);
@@ -66,6 +76,7 @@ void				ft_pile_delfirst(t_pile **a);
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);
 void				print_costs(t_pile **pile);
+void				print_pile(t_pile **pile);
 t_pile				*create_random_pile(size_t pile_size);
 int					ft_pileadd_back(t_pile *elem, long number,
 						int current_cursor, int last_cursor);
