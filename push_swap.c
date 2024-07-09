@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 10:52:17 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:01:47 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,28 +220,138 @@ void	mini_sort(t_pile **a)
 	}
 }
 
-void	put_in_b(t_pile **a, t_pile **b)
+int	get_numbers_of_family(t_pile **a)
 {
-	t_chunk	*chunk;
-	t_pile	*temp;
+	int	result;
 
-	chunk = init_chunck(*a);
-	if (!chunk)
-		return ;
+	if (get_pile_size(*a) < 100)
+		result = 3;
+	else if (get_pile_size(*a) < 600)
+		result = 6;
+	else if (get_pile_size(*a) > 600)
+		result = 7;
+	return (result);
+}
+
+long	*fullfill_array(t_pile *pile, int array_size)
+{
+	long	*result;
+	t_pile	*first_elem;
+	int		i;
+
+	first_elem = pile;
+	result = malloc(sizeof(long) * array_size);
+	if (!result)
+		return (NULL);
+	ft_bezero(result, array_size);
+	*result = *get_min_value_in(pile)->value;
+	i = 1;
+	while (pile)
+	{
+		if (*pile->value > *get_min_value_in(first_elem)->value)
+		{
+			result[i] = *pile->value;
+			i++;
+		}
+		pile = pile->next;
+	}
+	sort_long_tab(result, array_size);
+	return (result);
+}
+
+int	get_greaters(t_pile *pile, long to_compare)
+{
+	int	result;
+
+	result = 0;
+	while (pile)
+	{
+		if (*pile->value > to_compare)
+			result++;
+		pile = pile->next;
+	}
+	return (result + 1);
+}
+
+/**
+	assigne a tous les elements de pile,
+		les deux premieres identifiants de famille
+ */
+int	set_family(t_pile *pile, int first_family_id, int max_members)
+{
+	int		fst_fam;
+	int		sec_fam;
+	t_pile	*first_elem;
+	long	*array_of_greater;
+	int		i;
+
+	first_elem = pile;
+	get_min_value_in(pile)->family = first_family_id;
+	fst_fam = 1;
+	sec_fam = 0;
+	array_of_greater = fullfill_array(pile, get_greaters(pile,
+				*get_min_value_in(pile)->value));
+	i = 0;
+	while (pile && !(fst_fam == max_members && sec_fam == max_members))
+	{
+		if (*pile->value == array_of_greater[i])
+		{
+			if (fst_fam < (max_members + 1))
+			{
+				pile->family = first_family_id;
+				fst_fam++;
+			}
+			else
+			{
+				pile->family = first_family_id + 1;
+				sec_fam++;
+			}
+			pile = first_elem;
+			i++;
+			continue ;
+		}
+		pile = pile->next;
+	}
+	return (free(array_of_greater), 0);
+}
+
+/**
+	push vers b dans le bon ordre les familles concernees
+ */
+void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
+{
+	int	second_family_id;
+
 	while (get_pile_size(*a) > 3)
 	{
-		set_index(a);
-		if (!is_inside_chunk(*a, chunk))
-			set_chunk(*a, chunk);
-		temp = get_min_from_chunk(*a, chunk);
-		while (temp != *a)
+		if ((*a)->family > 0 && ((*a)->family % 2 == 0))
 		{
-			if (temp->index > (get_pile_size(*a) / 2))
-				rra(a);
-			else
-				ra(a);
+			pb(a, b);
 		}
-		pb(b, a);
+		else
+		{
+			pb(a, b);
+			rb(b);
+		}
+		ra(a);
+	}
+}
+
+void	put_in_b(t_pile **a, t_pile **b)
+{
+	int	chunk_size;
+	int	n;
+	int	last_family_id;
+
+	n = get_numbers_of_family(a);
+	chunk_size = get_pile_size(*a) / n;
+	last_family_id = 1;
+	while (get_pile_size(*a) > 3)
+	{
+		set_family(*a, last_family_id, chunk_size);
+		print_families(a);
+		push_family_to_b(last_family_id, a, b);
+		last_family_id += 2;
 	}
 }
 

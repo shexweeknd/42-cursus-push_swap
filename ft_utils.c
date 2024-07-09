@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:59:26 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/01 14:58:47 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:59:54 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_pile	*init_pile(long value)
 	first_elem->target = NULL;
 	first_elem->index = -1;
 	first_elem->cost = -1;
+	first_elem->family = -1;
 	return (first_elem);
 }
 

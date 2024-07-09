@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 09:46:03 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:57:32 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pile
 	struct s_pile	*target;
 	int				index;
 	int				cost;
+	int				family;
 }					t_pile;
 
 typedef struct s_chunk
@@ -72,13 +73,14 @@ void				free_pile(t_pile **pile);
 t_pile				*init_pile(long value);
 void				ft_bezero(long *data, int pile_size);
 void				ft_pile_delfirst(t_pile **a);
+int					ft_pileadd_back(t_pile *elem, long number,
+						int current_cursor, int last_cursor);
 
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);
 void				print_costs(t_pile **pile);
 void				print_pile(t_pile **pile);
 t_pile				*create_random_pile(size_t pile_size);
-int					ft_pileadd_back(t_pile *elem, long number,
-						int current_cursor, int last_cursor);
+void				print_families(t_pile **pile);
 
 #endif

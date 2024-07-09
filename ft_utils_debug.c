@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 09:45:53 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:57:49 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ void	print_pile(t_pile **pile)
 	return ;
 }
 
+void	print_families(t_pile **pile)
+{
+	t_pile	*first_elem;
+
+	first_elem = *pile;
+	while (*pile)
+	{
+		printf("%ld ==> family %d\n", *(*pile)->value, (*pile)->family);
+		*pile = (*pile)->next;
+	}
+	*pile = first_elem;
+	return ;
+}
 
 t_pile	*create_random_pile(size_t pile_size)
 {
