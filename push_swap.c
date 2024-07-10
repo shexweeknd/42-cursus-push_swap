@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/10 09:57:03 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:19:02 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void	set_family_id(long value, t_pile *pile, int family_id)
 	assigne a tous les elements de pile,
 		les deux premieres identifiants de famille
 	*/
-int	set_family(t_pile *pile, int first_family_id, int max_members)
+void	set_family(t_pile *pile, int first_family_id, int max_members)
 {
 	long	greater_min;
 	long	last_min;
@@ -319,7 +319,6 @@ int	set_family(t_pile *pile, int first_family_id, int max_members)
 			greater_min = *get_max_value_in(first_elem)->value;
 		}
 	}
-	return (0);
 }
 
 /**
@@ -331,13 +330,13 @@ void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 
 	while (get_pile_size(*a) > 3)
 	{
-		if ((*a)->family > 0 && ((*a)->family % 2 == 0))
+		if (((*a)->family > 0 && ((*a)->family % 2 == 0)) || !*b)
 		{
-			pb(a, b);
+			pb(b, a);
 		}
 		else
 		{
-			pb(a, b);
+			pb(b, a);
 			rb(b);
 		}
 		ra(a);
@@ -356,7 +355,7 @@ void	put_in_b(t_pile **a, t_pile **b)
 	while (get_pile_size(*a) > 3)
 	{
 		set_family(*a, last_family_id, chunk_size);
-		print_families(a);
+		// print_families(a);
 		push_family_to_b(last_family_id, a, b);
 		last_family_id += 2;
 	}
@@ -403,8 +402,10 @@ void	big_sort(t_pile **a)
 	mini_sort(a);
 	put_in_a(a, b);
 	last_round(a, get_min_value_in(*a));
-	// printf("\n");
-	// print_pile(a);
+	// printf("Last families:\n");
+	// print_families(a);
+	// printf("Last result:\n");
+	//print_pile(a);
 	free_pile(a);
 	free_pile(b);
 }
