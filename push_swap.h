@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 14:57:32 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:52:30 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void				set_position(t_pile **pile, t_pile *target);
 int					set_index(t_pile **pile);
 t_pile				*get_min_cost_in(t_pile *pile);
 t_pile				*get_min_value_in(t_pile *pile);
+t_pile				*get_max_value_in(t_pile *pile);
 t_chunk				*init_chunck(t_pile *pile);
 void				set_chunk(t_pile *pile, t_chunk *chunk);
 int					is_inside_chunk(t_pile *pile, t_chunk *chunk);

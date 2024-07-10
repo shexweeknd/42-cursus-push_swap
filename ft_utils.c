@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:59:26 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 11:59:54 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:58:29 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_pile	*init_pile(long value)
 		return (free(first_elem), NULL);
 	*first_elem->value = value;
 	first_elem->target = NULL;
-	first_elem->index = -1;
-	first_elem->cost = -1;
-	first_elem->family = -1;
+	first_elem->index = 0;
+	first_elem->cost = 0;
+	first_elem->family = 0;
 	return (first_elem);
 }
 

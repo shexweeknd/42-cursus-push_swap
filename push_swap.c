@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 15:01:47 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:57:03 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_pile	*verify_argv(char **argv)
 	void	**array;
 	t_pile	*first_elem;
 	size_t	array_size;
-	int		current_cursor;
+	int		current_greater_min;
 
 	first_elem = init_pile(0);
 	array = NULL;
@@ -91,13 +91,13 @@ t_pile	*verify_argv(char **argv)
 	while (*++argv)
 		array = (void **)combine_splitted((char **)array, ft_split(*argv, ' '));
 	array_size = ft_contentlen(array);
-	current_cursor = 0;
+	current_greater_min = 0;
 	while (*array)
 	{
 		if (!ft_isnumber(*(char **)array))
 			return (free_pile(&first_elem), NULL);
 		if (!ft_pileadd_back(first_elem, ft_atol(*(char **)array),
-				current_cursor++, array_size))
+				current_greater_min++, array_size))
 			return (NULL);
 		array++;
 	}
@@ -159,17 +159,17 @@ int	ft_is_sorted(t_pile *pile)
 int	ft_has_duplicates(t_pile *pile)
 {
 	t_pile	*temp;
-	t_pile	*cursor;
+	t_pile	*greater_min;
 
 	temp = pile;
 	while (temp)
 	{
-		cursor = temp->next;
-		while (cursor)
+		greater_min = temp->next;
+		while (greater_min)
 		{
-			if (*temp->value == *cursor->value)
+			if (*temp->value == *greater_min->value)
 				return (1);
-			cursor = cursor->next;
+			greater_min = greater_min->next;
 		}
 		temp = temp->next;
 	}
@@ -224,7 +224,9 @@ int	get_numbers_of_family(t_pile **a)
 {
 	int	result;
 
-	if (get_pile_size(*a) < 100)
+	if (get_pile_size(*a) < 10)
+		result = 2;
+	else if (get_pile_size(*a) < 100)
 		result = 3;
 	else if (get_pile_size(*a) < 600)
 		result = 6;
@@ -273,46 +275,51 @@ int	get_greaters(t_pile *pile, long to_compare)
 	return (result + 1);
 }
 
+void	set_family_id(long value, t_pile *pile, int family_id)
+{
+	while (pile)
+	{
+		if (*pile->value == value)
+			pile->family = family_id;
+		pile = pile->next;
+	}
+}
 /**
 	assigne a tous les elements de pile,
 		les deux premieres identifiants de famille
- */
+	*/
 int	set_family(t_pile *pile, int first_family_id, int max_members)
 {
-	int		fst_fam;
-	int		sec_fam;
+	long	greater_min;
+	long	last_min;
+	int		members;
 	t_pile	*first_elem;
-	long	*array_of_greater;
-	int		i;
 
-	first_elem = pile;
-	get_min_value_in(pile)->family = first_family_id;
-	fst_fam = 1;
-	sec_fam = 0;
-	array_of_greater = fullfill_array(pile, get_greaters(pile,
-				*get_min_value_in(pile)->value));
-	i = 0;
-	while (pile && !(fst_fam == max_members && sec_fam == max_members))
-	{
-		if (*pile->value == array_of_greater[i])
-		{
-			if (fst_fam < (max_members + 1))
-			{
-				pile->family = first_family_id;
-				fst_fam++;
-			}
-			else
-			{
-				pile->family = first_family_id + 1;
-				sec_fam++;
-			}
-			pile = first_elem;
-			i++;
-			continue ;
-		}
+	while (*pile->value == *get_min_value_in(pile)->value)
 		pile = pile->next;
+	first_elem = pile;
+	last_min = *get_min_value_in(first_elem)->value;
+	greater_min = *get_max_value_in(first_elem)->value;
+	get_min_value_in(first_elem)->family = first_family_id;
+	members = 1;
+	while (members < (max_members * 2))
+	{
+		if ((*pile->value > last_min) && (*pile->value < greater_min))
+			greater_min = *pile->value;
+		pile = pile->next;
+		if (!pile)
+		{
+			if (members < max_members)
+				set_family_id(greater_min, first_elem, first_family_id);
+			else if (members < (max_members * 2))
+				set_family_id(greater_min, first_elem, first_family_id + 1);
+			members++;
+			last_min = greater_min;
+			pile = first_elem;
+			greater_min = *get_max_value_in(first_elem)->value;
+		}
 	}
-	return (free(array_of_greater), 0);
+	return (0);
 }
 
 /**
