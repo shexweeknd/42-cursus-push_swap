@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 16:23:24 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:08:34 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,18 @@ void	print_families(t_pile **pile)
 	}
 	*pile = first_elem;
 	return ;
+}
+
+void	print_one_elem(t_pile *pile)
+{
+	printf("The elem to push is :\n");
+	printf("value: %ld\n", *pile->value);
+	printf("index position: %d\n", pile->index);
+	printf("cost: %d\n", pile->cost);
+	printf("family: %d\n", pile->family);
+	printf("target value: %ld\n", *pile->target->value);
+	printf("prev value: %ld\n", *pile->prev->value);
+	printf("prev value: %ld\n", *pile->prev->value);
 }
 
 t_pile	*create_random_pile(size_t pile_size)

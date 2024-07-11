@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 16:13:03 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:09:08 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ typedef struct s_pile
 	int				cost;
 	int				family;
 }					t_pile;
-
-typedef struct s_chunk
-{
-	long			lowest;
-	long			highest;
-}					t_chunk;
 
 // operations sur a
 void				sa(t_pile **a);
@@ -67,10 +61,6 @@ int					set_index(t_pile **pile);
 t_pile				*get_min_cost_in(t_pile *pile, int family_id);
 t_pile				*get_min_value_in(t_pile *pile);
 t_pile				*get_max_value_in(t_pile *pile);
-t_chunk				*init_chunck(t_pile *pile);
-void				set_chunk(t_pile *pile, t_chunk *chunk);
-int					is_inside_chunk(t_pile *pile, t_chunk *chunk);
-t_pile				*get_min_from_chunk(t_pile *pile, t_chunk *chunk);
 
 // fonctions utils
 size_t				get_pile_size(t_pile *pile);
@@ -89,5 +79,6 @@ void				print_index(t_pile **pile);
 void				print_pile(t_pile **pile);
 t_pile				*create_random_pile(size_t pile_size);
 void				print_families(t_pile **pile);
+void				print_one_elem(t_pile *pile);
 
 #endif
