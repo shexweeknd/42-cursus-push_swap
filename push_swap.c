@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 14:23:49 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:32:25 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,7 +411,12 @@ void	send_back_to_a(t_pile **a, t_pile **b)
 		set_b_target(a, b);
 		set_index(a);
 		if ((*b)->family != family_to_push)
-			rrb(b);
+		{
+			if (get_last_elem(*b)->target->index > (get_pile_size(*a) / 2))
+				rrr(a, b);
+			else
+				rrb(b);
+		}
 		while ((*b)->target != *a)
 		{
 			set_index(a);
