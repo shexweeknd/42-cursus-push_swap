@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:39:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 10:14:11 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:56:34 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	pb(t_pile **b, t_pile **a)
 	if (!*b)
 	{
 		create_first(a, b);
+		write(1, "pb\n", 3);
 		return ;
 	}
 	first_elem_b = *b;

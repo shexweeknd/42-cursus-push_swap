@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/10 16:19:02 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:52:41 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ void	put_in_b(t_pile **a, t_pile **b)
 	while (get_pile_size(*a) > 3)
 	{
 		set_family(*a, last_family_id, chunk_size);
-		// print_families(a);
+		print_families(a);
 		push_family_to_b(last_family_id, a, b);
 		last_family_id += 2;
 	}
@@ -405,7 +405,7 @@ void	big_sort(t_pile **a)
 	// printf("Last families:\n");
 	// print_families(a);
 	// printf("Last result:\n");
-	//print_pile(a);
+	// print_pile(a);
 	free_pile(a);
 	free_pile(b);
 }
