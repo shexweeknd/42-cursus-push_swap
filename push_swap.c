@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 09:52:41 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 10:40:56 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,14 +224,10 @@ int	get_numbers_of_family(t_pile **a)
 {
 	int	result;
 
-	if (get_pile_size(*a) < 10)
-		result = 2;
-	else if (get_pile_size(*a) < 100)
+	if (get_pile_size(*a) <= 100)
 		result = 3;
-	else if (get_pile_size(*a) < 600)
+	else
 		result = 6;
-	else if (get_pile_size(*a) > 600)
-		result = 7;
 	return (result);
 }
 
@@ -295,9 +291,9 @@ void	set_family(t_pile *pile, int first_family_id, int max_members)
 	int		members;
 	t_pile	*first_elem;
 
+	first_elem = pile;
 	while (*pile->value == *get_min_value_in(pile)->value)
 		pile = pile->next;
-	first_elem = pile;
 	last_min = *get_min_value_in(first_elem)->value;
 	greater_min = *get_max_value_in(first_elem)->value;
 	get_min_value_in(first_elem)->family = first_family_id;
@@ -321,41 +317,66 @@ void	set_family(t_pile *pile, int first_family_id, int max_members)
 	}
 }
 
+int	is_family_set(t_pile *pile)
+{
+	int	result;
+
+	result = 0;
+	while (pile)
+	{
+		if (pile->family != 0)
+			result = 1;
+		pile = pile->next;
+	}
+	return (result);
+}
+
+int	is_any_fammemb(t_pile *pile, int id)
+{
+	int	result;
+
+	result = 0;
+	while (pile)
+	{
+		if (pile->family == id)
+			result = 1;
+		pile = pile->next;
+	}
+	return (result);
+}
+
 /**
 	push vers b dans le bon ordre les familles concernees
  */
 void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 {
-	int	second_family_id;
-
-	while (get_pile_size(*a) > 3)
+	while (get_pile_size(*a) > 3 && is_family_set(*a))
 	{
 		if (((*a)->family > 0 && ((*a)->family % 2 == 0)) || !*b)
 		{
 			pb(b, a);
 		}
-		else
+		else if ((*a)->family > 0 && ((*a)->family % 2 == 1))
 		{
 			pb(b, a);
 			rb(b);
 		}
-		ra(a);
+		else if ((*a)->family == 0)
+			ra(a);
 	}
 }
 
 void	put_in_b(t_pile **a, t_pile **b)
 {
 	int	chunk_size;
-	int	n;
 	int	last_family_id;
 
-	n = get_numbers_of_family(a);
-	chunk_size = get_pile_size(*a) / n;
 	last_family_id = 1;
 	while (get_pile_size(*a) > 3)
 	{
+		chunk_size = get_pile_size(*a) / get_numbers_of_family(a);
 		set_family(*a, last_family_id, chunk_size);
-		print_families(a);
+		// print_families(a);
 		push_family_to_b(last_family_id, a, b);
 		last_family_id += 2;
 	}
