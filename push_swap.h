@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 14:17:13 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:13:03 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void				rrr(t_pile **a, t_pile **b);
 int					set_a_target(t_pile **a, t_pile **b);
 int					set_b_target(t_pile **a, t_pile **b);
 void				set_costs(t_pile *a, t_pile *b);
-void				set_position(t_pile **pile, t_pile *target);
+int					set_position(t_pile **pile, t_pile *to_put_in_top);
 int					set_index(t_pile **pile);
-t_pile				*get_min_cost_in(t_pile *pile);
+t_pile				*get_min_cost_in(t_pile *pile, int family_id);
 t_pile				*get_min_value_in(t_pile *pile);
 t_pile				*get_max_value_in(t_pile *pile);
 t_chunk				*init_chunck(t_pile *pile);
@@ -85,6 +85,7 @@ t_pile				*get_last_elem(t_pile *pile);
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);
 void				print_costs(t_pile **pile);
+void				print_index(t_pile **pile);
 void				print_pile(t_pile **pile);
 t_pile				*create_random_pile(size_t pile_size);
 void				print_families(t_pile **pile);

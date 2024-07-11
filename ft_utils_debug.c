@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 14:57:49 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:23:24 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,20 @@ void	print_costs(t_pile **pile)
 	printf("cost:\n");
 	while (current)
 	{
-		printf("%ld ==> %d\n", *current->value, current->target->cost);
+		printf("%ld ==> cost %d\n", *current->value, current->cost);
+		current = current->next;
+	}
+}
+
+void	print_index(t_pile **pile)
+{
+	t_pile	*current;
+
+	current = *pile;
+	printf("index:\n");
+	while (current)
+	{
+		printf("%ld ==> index %d\n", *current->value, current->index);
 		current = current->next;
 	}
 }
@@ -57,6 +70,7 @@ void	print_families(t_pile **pile)
 	t_pile	*first_elem;
 
 	first_elem = *pile;
+	printf("families:\n");
 	while (*pile)
 	{
 		printf("%ld ==> family %d\n", *(*pile)->value, (*pile)->family);

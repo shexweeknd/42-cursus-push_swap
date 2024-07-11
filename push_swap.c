@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 14:32:25 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:22:36 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,8 +352,12 @@ void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 {
 	while (get_pile_size(*a) > 3 && is_family_set(*a))
 	{
-		if (get_pile_size(*a) == 4)
+		if (get_pile_size(*a) == 4 && (*a)->family != 0)
+		{
 			pb(b, a);
+			if ((*b)->family % 2 == 1)
+				rb(b);
+		}
 		else if ((*a)->family == 0)
 			ra(a);
 		else if (((*a)->family > 0 && ((*a)->family % 2 == 0)) || !*b)
@@ -379,7 +383,7 @@ void	put_in_b(t_pile **a, t_pile **b)
 	{
 		chunk_size = get_pile_size(*a) / get_numbers_of_family(a);
 		set_family(*a, last_family_id, chunk_size);
-		// print_families(a);
+		print_families(a);
 		push_family_to_b(last_family_id, a, b);
 		last_family_id += 2;
 	}
@@ -406,17 +410,23 @@ void	send_back_to_a(t_pile **a, t_pile **b)
 	family_to_push = get_max_family_id(*b);
 	while (*b != NULL)
 	{
+		print_families(b);
 		if (!is_any_fammemb(*b, family_to_push))
 			family_to_push--;
 		set_b_target(a, b);
 		set_index(a);
-		if ((*b)->family != family_to_push)
-		{
-			if (get_last_elem(*b)->target->index > (get_pile_size(*a) / 2))
-				rrr(a, b);
-			else
-				rrb(b);
-		}
+		printf("\n");
+		print_index(a);
+		
+		set_index(b);
+		printf("\n");
+		print_index(b);
+		
+		set_costs(*a, *b);
+		printf("\n");
+		print_costs(b);
+		
+		set_position(b, get_min_cost_in(*b, family_to_push));
 		while ((*b)->target != *a)
 		{
 			set_index(a);

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 09:58:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:42:43 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,77 @@ t_pile	*get_min_value_in(t_pile *pile)
 	return (NULL);
 }
 
-t_pile	*get_min_cost_in(t_pile *pile)
+int	set_index(t_pile **pile)
+{
+	int		i;
+	t_pile	*curr;
+
+	curr = *pile;
+	if (!curr)
+		return (-1);
+	i = 1;
+	while (curr)
+	{
+		curr->index = i++;
+		curr = curr->next;
+	}
+	return (0);
+}
+
+void	set_costs(t_pile *a, t_pile *b)
+{
+	int	pile_a_size;
+	int	pile_b_size;
+	int	b_cost;
+	int	b_target_cost;
+
+	pile_b_size = get_pile_size(b);
+	pile_a_size = get_pile_size(a);
+	while (b)
+	{
+		b_target_cost = b->target->index;
+		b_cost = b->index;
+		if (b->index > (pile_b_size / 2))
+			b_cost = ft_abs(pile_b_size - b->index) + 1;
+		if (b->target->index <= (pile_a_size / 2))
+			b_target_cost--;
+		else if (b->target->index > (pile_a_size / 2))
+			b_target_cost = ft_abs(pile_a_size - b->target->index) + 1;
+		b->cost = b_cost + b_target_cost;
+		b = b->next;
+	}
+}
+
+int	set_position(t_pile **pile, t_pile *to_put_in_top)
+{
+	int	pile_size;
+
+	pile_size = get_pile_size(*pile);
+	if (to_put_in_top->index > (pile_size / 2))
+	{
+		while (*pile != to_put_in_top)
+			rrb(pile);
+	}
+	else
+	{
+		while (*pile != to_put_in_top)
+			rb(pile);
+	}
+	return (1);
+}
+
+t_pile	*get_min_cost_in(t_pile *pile, int family_id)
 {
 	int		min;
 	t_pile	*cursor;
 
 	cursor = pile;
+	while (cursor->family != family_id)
+		cursor = cursor->next;
 	min = cursor->cost;
 	while (cursor)
 	{
-		if (cursor->cost < min)
+		if (family_id == cursor->family && (cursor->cost < min))
 			min = cursor->cost;
 		cursor = cursor->next;
 	}
@@ -191,113 +252,4 @@ int	set_b_target(t_pile **a, t_pile **b)
 		curr_b = curr_b->next;
 	}
 	return (free(temp), 0);
-}
-
-t_chunk	*init_chunck(t_pile *pile)
-{
-	t_chunk	*result;
-	t_pile	*max;
-	t_pile	*min;
-
-	result = (t_chunk *)malloc(sizeof(t_chunk));
-	if (!result)
-		return (NULL);
-	min = get_min_value_in(pile);
-	max = get_max_value_in(pile);
-	result->lowest = ft_abs(*max->value - *min->value) / 2;
-	result->highest = *max->value;
-	return (result);
-}
-
-void	set_chunk(t_pile *pile, t_chunk *chunk)
-{
-	t_pile	*max;
-	t_pile	*min;
-
-	min = get_min_value_in(pile);
-	max = get_max_value_in(pile);
-	chunk->lowest = ft_abs(*max->value - *min->value) / 2;
-	chunk->highest = *max->value;
-}
-
-int	is_inside_chunk(t_pile *pile, t_chunk *chunk)
-{
-	int	result;
-
-	result = 0;
-	while (pile)
-	{
-		if (*pile->value >= chunk->lowest && *pile->value <= chunk->highest)
-			result = 1;
-		pile = pile->next;
-	}
-	return (result);
-}
-
-t_pile	*get_min_from_chunk(t_pile *pile, t_chunk *chunk)
-{
-	t_pile	*result;
-	long	*lowest;
-
-	result = NULL;
-	lowest = NULL;
-	while (pile)
-	{
-		if (*pile->value >= chunk->lowest && *pile->value <= chunk->highest)
-		{
-			if (result == NULL || *pile->value < *result->value)
-				result = pile;
-		}
-		pile = pile->next;
-	}
-	return (result);
-}
-
-int	set_index(t_pile **pile)
-{
-	int		i;
-	t_pile	*curr;
-
-	curr = *pile;
-	if (!curr)
-		return (-1);
-	i = 1;
-	while (curr)
-	{
-		curr->index = i++;
-		curr = curr->next;
-	}
-	return (0);
-}
-
-void	set_costs(t_pile *a, t_pile *b)
-{
-	int	pile_b_size;
-	int	pile_a_size;
-
-	pile_a_size = get_pile_size(a);
-	pile_b_size = get_pile_size(b);
-	while (a)
-	{
-		a->cost = ft_abs(a->index - pile_a_size) + ft_abs(a->target->index
-				- pile_b_size);
-		a = a->next;
-	}
-}
-
-void	set_position(t_pile **pile, t_pile *target)
-{
-	int	pile_size;
-
-	pile_size = get_pile_size(*pile);
-	if (target->index > (pile_size / 2))
-	{
-		while (*pile != target)
-			rrb(pile);
-	}
-	else
-	{
-		while (*pile != target)
-			rb(pile);
-	}
 }
