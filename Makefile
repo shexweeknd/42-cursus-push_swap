@@ -9,6 +9,7 @@ SRCS = push_swap.c \
 		ft_op_a.c \
 		ft_op_b.c \
 		ft_op_ab.c \
+		ft_op_ab_utils.c \
 		ft_turk.c \
 		ft_utils.c \
 		ft_utils_debug.c

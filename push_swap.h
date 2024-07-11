@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/10 09:52:30 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:17:13 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void				rb(t_pile **b);
 void				rrb(t_pile **a);
 
 // operations sur ab
+void				pseudo_ra(t_pile **a);
+void				pseudo_rb(t_pile **b);
 void				rr(t_pile **a, t_pile **b);
+void				pseudo_rra(t_pile **a);
+void				pseudo_rrb(t_pile **b);
 void				rrr(t_pile **a, t_pile **b);
 
 // algo turk utils
@@ -76,6 +80,7 @@ void				ft_bezero(long *data, int pile_size);
 void				ft_pile_delfirst(t_pile **a);
 int					ft_pileadd_back(t_pile *elem, long number,
 						int current_cursor, int last_cursor);
+t_pile				*get_last_elem(t_pile *pile);
 
 // fonctions utils pour debug
 void				print_targets(t_pile **pile);

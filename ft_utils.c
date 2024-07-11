@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:59:26 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/10 09:58:29 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:40:53 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,15 @@ void	ft_pile_delfirst(t_pile **a)
 	free(first_elem_a->value);
 	free(first_elem_a);
 	*a = second_elem_a;
+}
+
+t_pile	*get_last_elem(t_pile *pile)
+{
+	if (!pile)
+		return (NULL);
+	while (pile->next != NULL)
+	{
+		pile = pile->next;
+	}
+	return (pile);
 }

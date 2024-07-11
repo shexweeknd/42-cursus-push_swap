@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 12:13:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:23:49 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,7 +361,10 @@ void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 		else if ((*a)->family > 0 && ((*a)->family % 2 == 1))
 		{
 			pb(b, a);
-			rb(b);
+			if ((*a)->family == 0)
+				rr(a, b);
+			else
+				rb(b);
 		}
 	}
 }
@@ -433,6 +436,57 @@ void	last_round(t_pile **a, t_pile *min)
 	}
 }
 
+void	fix_first_members(t_pile *pile)
+{
+	int		fam_id;
+	t_pile	*last_member;
+	t_pile	*first_elem;
+
+	first_elem = pile;
+	fam_id = 0;
+	while (pile)
+	{
+		if (pile->family != 0)
+		{
+			fam_id = pile->family;
+			last_member = pile;
+			break ;
+		}
+		pile = pile->next;
+	}
+	while (first_elem != last_member)
+	{
+		first_elem->family = fam_id;
+		first_elem = first_elem->next;
+	}
+}
+
+void	fix_last_members(t_pile *pile)
+{
+	int		fam_id;
+	t_pile	*last_member;
+	t_pile	*last_elem;
+	t_pile	*curr;
+
+	last_elem = get_last_elem(pile);
+	curr = last_elem;
+	while (curr)
+	{
+		if (curr->family != 0)
+		{
+			fam_id = curr->family;
+			last_member = curr;
+			break ;
+		}
+		curr = curr->prev;
+	}
+	while (last_elem != last_member)
+	{
+		last_elem->family = fam_id;
+		last_elem = last_elem->prev;
+	}
+}
+
 void	big_sort(t_pile **a)
 {
 	t_pile	**b;
@@ -442,6 +496,8 @@ void	big_sort(t_pile **a)
 		return ;
 	*b = NULL;
 	put_in_b(a, b);
+	fix_first_members(*b);
+	fix_last_members(*b);
 	mini_sort(a);
 	send_back_to_a(a, b);
 	last_round(a, get_min_value_in(*a));
