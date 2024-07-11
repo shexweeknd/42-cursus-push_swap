@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 11:26:13 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:13:48 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,17 +352,17 @@ void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 {
 	while (get_pile_size(*a) > 3 && is_family_set(*a))
 	{
-		if (((*a)->family > 0 && ((*a)->family % 2 == 0)) || !*b)
-		{
+		if (get_pile_size(*a) == 4)
 			pb(b, a);
-		}
+		else if ((*a)->family == 0)
+			ra(a);
+		else if (((*a)->family > 0 && ((*a)->family % 2 == 0)) || !*b)
+			pb(b, a);
 		else if ((*a)->family > 0 && ((*a)->family % 2 == 1))
 		{
 			pb(b, a);
 			rb(b);
 		}
-		else if ((*a)->family == 0)
-			ra(a);
 	}
 }
 
@@ -411,23 +411,7 @@ void	send_back_to_a(t_pile **a, t_pile **b)
 			rrb(b);
 		while ((*b)->target != *a)
 		{
-			if ((*b)->target->index > (get_pile_size(*a) / 2))
-				rra(a);
-			else
-				ra(a);
-		}
-		pa(a, b);
-	}
-}
-
-void	put_in_a(t_pile **a, t_pile **b)
-{
-	while (*b != NULL)
-	{
-		set_b_target(a, b);
-		set_index(a);
-		while ((*b)->target != *a)
-		{
+			set_index(a);
 			if ((*b)->target->index > (get_pile_size(*a) / 2))
 				rra(a);
 			else
@@ -459,7 +443,6 @@ void	big_sort(t_pile **a)
 	*b = NULL;
 	put_in_b(a, b);
 	mini_sort(a);
-	// put_in_a(a, b);
 	send_back_to_a(a, b);
 	last_round(a, get_min_value_in(*a));
 	// printf("Last families:\n");
