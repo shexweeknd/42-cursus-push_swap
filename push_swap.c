@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 10:40:56 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:26:13 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,6 +382,44 @@ void	put_in_b(t_pile **a, t_pile **b)
 	}
 }
 
+int	get_max_family_id(t_pile *pile)
+{
+	int	result;
+
+	result = 0;
+	while (pile)
+	{
+		if (pile->family > result)
+			result = pile->family;
+		pile = pile->next;
+	}
+	return (result);
+}
+
+void	send_back_to_a(t_pile **a, t_pile **b)
+{
+	int	family_to_push;
+
+	family_to_push = get_max_family_id(*b);
+	while (*b != NULL)
+	{
+		if (!is_any_fammemb(*b, family_to_push))
+			family_to_push--;
+		set_b_target(a, b);
+		set_index(a);
+		if ((*b)->family != family_to_push)
+			rrb(b);
+		while ((*b)->target != *a)
+		{
+			if ((*b)->target->index > (get_pile_size(*a) / 2))
+				rra(a);
+			else
+				ra(a);
+		}
+		pa(a, b);
+	}
+}
+
 void	put_in_a(t_pile **a, t_pile **b)
 {
 	while (*b != NULL)
@@ -421,7 +459,8 @@ void	big_sort(t_pile **a)
 	*b = NULL;
 	put_in_b(a, b);
 	mini_sort(a);
-	put_in_a(a, b);
+	// put_in_a(a, b);
+	send_back_to_a(a, b);
 	last_round(a, get_min_value_in(*a));
 	// printf("Last families:\n");
 	// print_families(a);
