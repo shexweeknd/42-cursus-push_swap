@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:51:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 17:08:34 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 08:48:56 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	print_one_elem(t_pile *pile)
 	printf("family: %d\n", pile->family);
 	printf("target value: %ld\n", *pile->target->value);
 	printf("prev value: %ld\n", *pile->prev->value);
-	printf("prev value: %ld\n", *pile->prev->value);
+	printf("next value: %ld\n", *pile->next->value);
 }
 
 t_pile	*create_random_pile(size_t pile_size)

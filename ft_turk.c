@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 16:42:43 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:04:11 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ t_pile	*get_min_cost_in(t_pile *pile, int family_id)
 	}
 	while (pile)
 	{
-		if (pile->cost == min)
+		if (pile->cost == min && (pile->family == family_id))
 			return (pile);
 		pile = pile->next;
 	}
