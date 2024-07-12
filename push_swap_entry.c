@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:11:32 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 11:27:04 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:49:11 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
  * @return char**
  * @date 2024-06-10
  */
+// TODO verifier les conditions de leaks dans cette fonction
 char	**combine_splitted(char **s1, char **s2)
 {
 	char	**result;
