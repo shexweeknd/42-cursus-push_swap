@@ -1,106 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_turk.c                                          :+:      :+:    :+:   */
+/*   ft_turk_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:39:58 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 09:04:11 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:46:56 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_pile	*get_max_target_from_array(t_pile *pile, long *tab, int array_size)
-{
-	long	max;
-	t_pile	*result;
-
-	max = *tab;
-	if (!array_size)
-		return (NULL);
-	while (array_size--)
-	{
-		if (*tab > max)
-			max = *tab;
-		tab++;
-	}
-	while (pile)
-	{
-		if (*pile->value == max)
-			return (pile);
-		pile = pile->next;
-	}
-	return (NULL);
-}
-
-t_pile	*get_min_target_from_array(t_pile *pile, long *tab, int array_size)
-{
-	long	min;
-	t_pile	*result;
-
-	min = *tab;
-	if (!array_size)
-		return (NULL);
-	while (array_size--)
-	{
-		if (*tab < min)
-			min = *tab;
-		tab++;
-	}
-	while (pile)
-	{
-		if (*pile->value == min)
-			return (pile);
-		pile = pile->next;
-	}
-	return (NULL);
-}
-
-t_pile	*get_max_value_in(t_pile *pile)
-{
-	long	max;
-	t_pile	*cursor;
-
-	cursor = pile;
-	max = *cursor->value;
-	while (cursor)
-	{
-		if (*cursor->value > max)
-			max = *cursor->value;
-		cursor = cursor->next;
-	}
-	while (pile)
-	{
-		if (*pile->value == max)
-			return (pile);
-		pile = pile->next;
-	}
-	return (NULL);
-}
-
-t_pile	*get_min_value_in(t_pile *pile)
-{
-	long	min;
-	t_pile	*cursor;
-
-	cursor = pile;
-	min = *cursor->value;
-	while (cursor)
-	{
-		if (*cursor->value < min)
-			min = *cursor->value;
-		cursor = cursor->next;
-	}
-	while (pile)
-	{
-		if (*pile->value == min)
-			return (pile);
-		pile = pile->next;
-	}
-	return (NULL);
-}
 
 int	set_index(t_pile **pile)
 {
@@ -161,30 +71,7 @@ int	set_position(t_pile **pile, t_pile *to_put_in_top)
 	return (1);
 }
 
-t_pile	*get_min_cost_in(t_pile *pile, int family_id)
-{
-	int		min;
-	t_pile	*cursor;
-
-	cursor = pile;
-	while (cursor->family != family_id)
-		cursor = cursor->next;
-	min = cursor->cost;
-	while (cursor)
-	{
-		if (family_id == cursor->family && (cursor->cost < min))
-			min = cursor->cost;
-		cursor = cursor->next;
-	}
-	while (pile)
-	{
-		if (pile->cost == min && (pile->family == family_id))
-			return (pile);
-		pile = pile->next;
-	}
-	return (NULL);
-}
-
+// TODO compacter
 int	set_a_target(t_pile **a, t_pile **b)
 {
 	t_pile	*curr_a;
@@ -219,7 +106,7 @@ int	set_a_target(t_pile **a, t_pile **b)
 	return (free(temp), 0);
 }
 
-/** todo remove 06 lines from code */
+// TODO compacter
 int	set_b_target(t_pile **a, t_pile **b)
 {
 	t_pile	*curr_a;

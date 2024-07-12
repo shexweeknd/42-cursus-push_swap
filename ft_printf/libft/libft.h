@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:20:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/09 14:25:38 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:26:37 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 /*utilitaires*/
 int					ft_isnumber(const char *str);
+size_t				ft_contentlen(void **list);
+size_t				get_twodim_size(char **splitted);
 
 #endif

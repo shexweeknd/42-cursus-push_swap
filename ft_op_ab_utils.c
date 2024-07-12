@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:17:35 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/11 14:20:29 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:47:18 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	pseudo_rra(t_pile **a)
 
 void	pseudo_rrb(t_pile **b)
 {
-	t_pile *sauvegarde;
-	t_pile *avant_dernier;
+	t_pile	*sauvegarde;
+	t_pile	*avant_dernier;
 
 	sauvegarde = *b;
 	while (*b)

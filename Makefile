@@ -5,13 +5,20 @@ FLAGS = -Wall -Wextra -Werror
 GARBAGE = *.o */*.o *.gch */*.gch *.out */*.out *.a
 
 SRCS = push_swap.c \
+		family_utils_one.c \
+		family_utils_two.c \
+		push_swap_entry.c \
+		push_swap_utils.c \
+		push_swap_fixer.c \
 		checker.c \
 		ft_op_a.c \
 		ft_op_b.c \
 		ft_op_ab.c \
 		ft_op_ab_utils.c \
-		ft_turk.c \
-		ft_utils.c \
+		ft_turk_one.c \
+		ft_turk_two.c \
+		ft_utils_one.c \
+		ft_utils_two.c \
 		ft_utils_debug.c
 
 OBJS = $(SRCS:.c=.o)
