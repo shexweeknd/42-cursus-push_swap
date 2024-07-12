@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 11:37:05 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:29:41 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void				pseudo_rrb(t_pile **b);
 void				rrr(t_pile **a, t_pile **b);
 
 // algo turk utils
-int					set_a_target(t_pile **a, t_pile **b);
 int					set_b_target(t_pile **a, t_pile **b);
 void				set_costs(t_pile *a, t_pile *b);
 int					set_position(t_pile **pile, t_pile *to_put_in_top);

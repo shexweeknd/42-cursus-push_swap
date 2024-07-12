@@ -19,7 +19,8 @@ SRCS = push_swap.c \
 		ft_turk_two.c \
 		ft_utils_one.c \
 		ft_utils_two.c \
-		ft_utils_debug.c
+		ft_utils_debug_one.c \
+		ft_utils_debug_two.c
 
 OBJS = $(SRCS:.c=.o)
 

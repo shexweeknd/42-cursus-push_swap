@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:05:56 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 16:10:42 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:39:43 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,15 @@ int	get_numbers_of_family(t_pile **a)
 	return (result);
 }
 
-// TODO compacter
-void	set_family(t_pile *pile, int first_family_id, int max_members)
+void	set_family_subfunc(t_pile *pile, t_pile *first_elem, int max_members,
+		int first_family_id)
 {
 	long	greater_min;
 	long	last_min;
 	int		members;
-	t_pile	*first_elem;
 
-	first_elem = pile;
-	while (*pile->value == *get_min_value_in(first_elem)->value)
-		pile = pile->next;
 	last_min = *get_min_value_in(first_elem)->value;
 	greater_min = *get_max_value_in(first_elem)->value;
-	get_min_value_in(first_elem)->family = first_family_id;
 	members = 1;
 	while (members < (max_members * 2))
 	{
@@ -94,4 +89,16 @@ void	set_family(t_pile *pile, int first_family_id, int max_members)
 			greater_min = *get_max_value_in(first_elem)->value;
 		}
 	}
+}
+
+// TODO enlever 5 lignes
+void	set_family(t_pile *pile, int first_family_id, int max_members)
+{
+	t_pile	*first_elem;
+
+	first_elem = pile;
+	while (*pile->value == *get_min_value_in(first_elem)->value)
+		pile = pile->next;
+	get_min_value_in(first_elem)->family = first_family_id;
+	set_family_subfunc(pile, first_elem, max_members, first_family_id);
 }

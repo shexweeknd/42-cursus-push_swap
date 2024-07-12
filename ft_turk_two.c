@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:34:33 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 11:45:51 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:25:20 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_pile	*get_max_value_in(t_pile *pile)
 	while (pile)
 	{
 		if (*pile->value == max)
-			return (pile);
+			break ;
 		pile = pile->next;
 	}
-	return (NULL);
+	return (pile);
 }
 
 t_pile	*get_min_value_in(t_pile *pile)
