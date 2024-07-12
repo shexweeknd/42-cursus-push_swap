@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 08:58:55 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:55:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,21 +409,21 @@ void	send_back_to_a(t_pile **a, t_pile **b)
 	family_to_push = get_max_family_id(*b);
 	while (*b != NULL)
 	{
-		print_families(b);
-		if (!is_any_fammemb(*b, family_to_push))
+		// print_families(b);
+		while (!is_any_fammemb(*b, family_to_push))
 			family_to_push--;
 		set_b_target(a, b);
 		set_index(a);
-		printf("\n");
-		print_index(a);
+		// printf("\n");
+		// print_index(a);
 		set_index(b);
-		printf("\n");
-		print_index(b);
+		// printf("\n");
+		// print_index(b);
 		set_costs(*a, *b);
-		printf("\n");
-		print_costs(b);
+		// printf("\n");
+		// print_costs(b);
 		set_position(b, get_min_cost_in(*b, family_to_push));
-		//print_one_elem(get_min_cost_in(*b, family_to_push));
+		// print_one_elem(get_min_cost_in(*b, family_to_push));
 		while ((*b)->target != *a)
 		{
 			set_index(a);
