@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:05:56 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 11:48:05 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:10:42 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	set_family(t_pile *pile, int first_family_id, int max_members)
 	t_pile	*first_elem;
 
 	first_elem = pile;
-	while (*pile->value == *get_min_value_in(pile)->value)
+	while (*pile->value == *get_min_value_in(first_elem)->value)
 		pile = pile->next;
 	last_min = *get_min_value_in(first_elem)->value;
 	greater_min = *get_max_value_in(first_elem)->value;
