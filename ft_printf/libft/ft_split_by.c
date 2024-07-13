@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_by.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:23:47 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 12:10:43 by hramaros         ###   ########.fr       */
+/*   Created: 2024/07/13 12:13:44 by hramaros          #+#    #+#             */
+/*   Updated: 2024/07/13 13:24:32 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char *str)
+static int	count_words(char *str, char sep)
 {
 	int	result;
 
-	while (ft_isspace(*str))
+	while (*str == sep)
 		str++;
 	if (!*str)
 		return (0);
 	result = 1;
 	while (*str)
 	{
-		if (ft_isspace(*str) && !ft_isspace(*(str + 1)) && *(str + 1))
+		if ((*str == sep) && (*(str + 1) != sep) && *(str + 1))
 			result++;
 		str++;
 	}
@@ -43,25 +43,26 @@ static void	ft_free(char **result)
 	free(result);
 }
 
-static char	*skip_spaces(char *str)
+static char	*skip_sep(char *str, char sep)
 {
-	while (ft_isspace(*str))
+	while (*str == sep)
 		str++;
 	return (str);
 }
 
-static int	fullfill_result(char **result, int index, char *str)
+static int	fullfill_result(char **result, int index, char *str, char sep)
 {
 	int	k;
 
-	if (!ft_isspace(*str))
+	if (*str != sep)
 	{
-		result[index] = (char *)malloc(sizeof(char) * (word_len(str) + 1));
+		result[index] = (char *)malloc(sizeof(char) * (word_len_sep(str, sep)
+					+ 1));
 		if (!result[index])
 			return (ft_free(result), 0);
-		result[index][word_len(str)] = 0;
+		result[index][word_len_sep(str, sep)] = 0;
 		k = 0;
-		while (!ft_isspace(*str) && *str)
+		while ((*str != sep) && *str)
 		{
 			result[index][k] = *str;
 			k++;
@@ -71,26 +72,27 @@ static int	fullfill_result(char **result, int index, char *str)
 	return (1);
 }
 
-char	**ft_split(char *str)
+char	**ft_split_by(char *str, char sep)
 {
-	char	**result;
-	int		index;
+	char **result;
+	int index;
 
-	str = skip_spaces(str);
+	str = skip_sep(str, sep);
 	if (!*str)
 		return (NULL);
-	result = (char **)malloc(sizeof(char *) * (count_words(str) + 1));
+	result = (char **)malloc(sizeof(char *) * (count_words(str, sep) + 1));
 	if (!result)
 		return (NULL);
-	result[count_words(str)] = NULL;
+	result[count_words(str, sep)] = NULL;
 	index = 0;
 	while (*str)
 	{
-		str = skip_spaces(str);
-		if (!fullfill_result(result, index, str))
+		str = skip_sep(str, sep);
+		if (!fullfill_result(result, index, str, sep))
 			return (NULL);
-		str += word_len(str);
-		str = skip_spaces(str);
+		while (*str && (*str != sep))
+			str++;
+		str = skip_sep(str, sep);
 		index++;
 	}
 	return (result);

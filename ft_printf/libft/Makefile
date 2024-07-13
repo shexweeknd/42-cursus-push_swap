@@ -14,6 +14,7 @@ SRC = ft_abs.c \
 	ft_isdigit.c \
 	ft_isprint.c \
 	ft_isint.c \
+	ft_isspace.c \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_memcpy.c \
@@ -32,7 +33,10 @@ SRC = ft_abs.c \
 	ft_substr.c \
 	ft_strjoin.c \
 	ft_strtrim.c \
+	word_len.c \
+	word_len_sep.c \
 	ft_split.c \
+	ft_split_by.c \
 	ft_itoa.c \
 	ft_strmapi.c \
 	ft_striteri.c \
@@ -41,7 +45,7 @@ SRC = ft_abs.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	sort_long_tab.c \
-	get_twodim_size.c
+	get_twodim_size.c \
 
 BONUS = ft_lstnew_bonus.c \
 	ft_lstadd_front_bonus.c \

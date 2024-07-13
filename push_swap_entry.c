@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:11:32 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 16:49:11 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 13:15:14 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ t_pile	*verify_argv(char **argv)
 	if (!first_elem)
 		return (NULL);
 	while (*++argv)
-		array = (void **)combine_splitted((char **)array, ft_split(*argv, ' '));
+		array = (void **)combine_splitted((char **)array, ft_split_by(*argv,
+					' '));
 	array_size = ft_contentlen(array);
 	current_greater_min = 0;
 	while (*array)

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:20:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 11:26:37 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 13:15:35 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
+int					ft_isspace(char c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 void				*ft_calloc(size_t n, size_t size);
@@ -56,7 +57,8 @@ char				*ft_strrchr(const char *str, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
-char				**ft_split(char const *s, char c);
+char				**ft_split(char *str);
+char				**ft_split_by(char *s, char sep);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -65,6 +67,8 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				sort_long_tab(long *tab, unsigned int size);
+int					word_len(char *str);
+int					word_len_sep(char *str, char sep);
 
 /*Bonus section*/
 t_list				*ft_lstnew(void *content);
