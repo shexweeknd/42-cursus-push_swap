@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:11:32 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 13:15:14 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:17:15 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,29 @@
  * @return char**
  * @date 2024-06-10
  */
-// TODO verifier les conditions de leaks dans cette fonction
 char	**combine_splitted(char **s1, char **s2)
 {
+	char	**to_free_one;
+	char	**to_free_two;
 	char	**result;
 	char	**temp;
 	size_t	total_size;
 
 	total_size = get_twodim_size((char **)s1) + get_twodim_size((char **)s2);
 	temp = (char **)malloc(sizeof(char *) * (total_size + 1));
-	result = temp;
 	if (!temp)
-		return (free(s1), free(s2), NULL);
+		return (ft_free_splitted(s1), ft_free_splitted(s2), NULL);
+	result = temp;
+	to_free_one = s1;
 	while (s1 && *s1)
 		*temp++ = *s1++;
+	if (to_free_one)
+		free(to_free_one);
+	to_free_two = s2;
 	while (s2 && *s2)
 		*temp++ = *s2++;
 	*temp = 0;
+	free(to_free_two);
 	return (result);
 }
 
@@ -119,7 +125,8 @@ int	ft_is_sorted(t_pile *pile)
  */
 t_pile	*verify_argv(char **argv)
 {
-	void	**array;
+	char	**array;
+	char	**to_free;
 	t_pile	*first_elem;
 	size_t	array_size;
 	int		current_greater_min;
@@ -129,18 +136,18 @@ t_pile	*verify_argv(char **argv)
 	if (!first_elem)
 		return (NULL);
 	while (*++argv)
-		array = (void **)combine_splitted((char **)array, ft_split_by(*argv,
-					' '));
+		array = combine_splitted(array, ft_split_by(*argv, ' '));
 	array_size = ft_contentlen(array);
 	current_greater_min = 0;
+	to_free = array;
 	while (*array)
 	{
-		if (!ft_isnumber(*(char **)array))
+		if (!ft_isnumber(*array))
 			return (free_pile(&first_elem), NULL);
-		if (!ft_pileadd_back(first_elem, ft_atol(*(char **)array),
-				current_greater_min++, array_size))
+		if (!ft_pileadd_back(first_elem, ft_atol(*array), current_greater_min++,
+				array_size))
 			return (NULL);
 		array++;
 	}
-	return (first_elem);
+	return (ft_free_splitted(to_free), first_elem);
 }

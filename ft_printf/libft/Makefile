@@ -37,6 +37,7 @@ SRC = ft_abs.c \
 	word_len_sep.c \
 	ft_split.c \
 	ft_split_by.c \
+	ft_free_splitted.c \
 	ft_itoa.c \
 	ft_strmapi.c \
 	ft_striteri.c \

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 13:25:14 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:25:17 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	push_swap(t_pile **a)
 
 	pile_size = get_pile_size(*a);
 	if (pile_size == 2)
+	{
 		ra(a);
+		free_pile(a);
+	}
 	else if (pile_size == 3)
 		mini_sort(a);
 	else
@@ -52,9 +55,9 @@ void	push_swap(t_pile **a)
 
 int	main(int argc, char **argv)
 {
-	t_pile **a;
-	t_pile **b;
-	int i;
+	t_pile	**a;
+	t_pile	**b;
+	int		i;
 
 	a = (t_pile **)malloc(sizeof(t_pile *));
 	if (!a)

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:23:47 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 12:10:43 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 13:46:17 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ static int	count_words(char *str)
 	return (result);
 }
 
-static void	ft_free(char **result)
-{
-	int	index;
-
-	index = 0;
-	while (result[index])
-	{
-		free(result[index]);
-		index++;
-	}
-	free(result);
-}
-
 static char	*skip_spaces(char *str)
 {
 	while (ft_isspace(*str))
@@ -58,7 +45,7 @@ static int	fullfill_result(char **result, int index, char *str)
 	{
 		result[index] = (char *)malloc(sizeof(char) * (word_len(str) + 1));
 		if (!result[index])
-			return (ft_free(result), 0);
+			return (ft_free_splitted(result), 0);
 		result[index][word_len(str)] = 0;
 		k = 0;
 		while (!ft_isspace(*str) && *str)

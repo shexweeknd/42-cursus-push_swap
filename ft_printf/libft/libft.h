@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:20:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 13:15:35 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:03:51 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char *str);
 char				**ft_split_by(char *s, char sep);
+void				ft_free_splitted(char **result);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -84,7 +85,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 
 /*utilitaires*/
 int					ft_isnumber(const char *str);
-size_t				ft_contentlen(void **list);
+size_t				ft_contentlen(char **list);
 size_t				get_twodim_size(char **splitted);
 
 #endif
