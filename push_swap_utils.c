@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:18:28 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 14:24:05 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:37:19 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	mini_sort(t_pile **a)
 		else if ((deuxieme > premier) && (deuxieme > troisieme))
 			rra(a);
 	}
-	free_pile(a);
 }
 
 void	put_in_b(t_pile **a, t_pile **b)

@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 14:25:17 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 14:39:28 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ void	push_swap(t_pile **a)
 		free_pile(a);
 	}
 	else if (pile_size == 3)
+	{
 		mini_sort(a);
+		free_pile(a);
+	}
 	else
 		big_sort(a);
 }
@@ -63,11 +66,11 @@ int	main(int argc, char **argv)
 	if (!a)
 		return (write(1, "Erreur d'allocation de la pile\n", 31), 1);
 	if (!(argc >= 2) && (argc != 1))
-		return (free_pile(a), write(2, "Error\n", 6), 1);
+		return (free(a), write(2, "Error\n", 6), 1);
 	if (argc == 2)
 		argc = get_args_numbers(argv[1]);
 	else if (argc == 1)
-		return (free_pile(a), 0);
+		return (free(a), 0);
 	else
 		argc -= 1;
 	i = 1;
