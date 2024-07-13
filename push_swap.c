@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:14 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 14:39:28 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:14:06 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	push_swap(t_pile **a)
 int	main(int argc, char **argv)
 {
 	t_pile	**a;
-	t_pile	**b;
 	int		i;
 
 	a = (t_pile **)malloc(sizeof(t_pile *));

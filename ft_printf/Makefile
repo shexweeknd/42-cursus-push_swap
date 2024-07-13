@@ -28,7 +28,9 @@ END = \033[0m
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
 	@cc -c $(SRCS) -I ./
 
-all: $(OBJS)
+all: $(NAME)
+
+$(NAME): $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
 	@cd ./libft && \
 	make fclean bonus && \
@@ -38,12 +40,10 @@ all: $(OBJS)
 	@make .c.o
 	@ar rc $(NAME) $(OBJS)
 	@echo "$(GREEN)#Created: $(END) $(NAME)"
-	@make clean
 	@ranlib $(NAME)
 
 debug: re
 	@echo "$(GREEN)###$(BLUE) Exec debug rule$(GREEN)###$(END)"
-#	@cc $(FLAGS) -g main.c -L. -lftprintf && ./a.out | cat -e
 	@cc $(FLAGS) -g main.c $(SRCS) && ./a.out | cat -e
 
 clean: $(OBJS)

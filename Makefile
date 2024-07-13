@@ -10,7 +10,6 @@ SRCS = push_swap.c \
 		push_swap_entry.c \
 		push_swap_utils.c \
 		push_swap_fixer.c \
-		checker.c \
 		ft_op_a.c \
 		ft_op_b.c \
 		ft_op_ab.c \
@@ -22,7 +21,18 @@ SRCS = push_swap.c \
 		ft_utils_debug_one.c \
 		ft_utils_debug_two.c
 
+BONUS_SRCS = checker.c \
+		push_swap_entry.c \
+		ft_op_a.c \
+		ft_op_b.c \
+		ft_op_ab.c \
+		ft_op_ab_utils.c \
+		ft_utils_one.c \
+		ft_utils_two.c \
+
 OBJS = $(SRCS:.c=.o)
+
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 # Colors variables
 GREEN = \033[0;32m
@@ -36,30 +46,41 @@ END = \033[0m
 # Rules
 .c.o:
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
-	@cc -c -g $(SRCS) -I ft_printf -I ft_printf/libft -I ./
+	@cc -c -g $(SRCS) $(BONUS_SRCS) -I ft_printf -I ft_printf/libft -I ./
 
-all: $(OBJS)
+all: $(NAME)
+
+$(NAME): $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
 	@cd ./ft_printf &&\
-	make all clean &&\
-	mv ./libftprintf.a ../ &&\
+	make all &&\
 	cd .. &&\
-	cc $(FLAGS) -g $(OBJS) -o $(NAME) -L. -lftprintf
-	make clean
-
-debug: re
-	@echo "$(GREEN)###$(BLUE) Exec debug rule$(GREEN)###$(END)"
-	@cc $(FLAGS) -g main.c -L. -lftprintf && ./a.out | cat -e
+	cc $(FLAGS) -g $(OBJS) -o $(NAME) -L ./ft_printf/ -lftprintf
 
 clean: $(OBJS)
-	@rm -rf $(OBJS) $(GARBAGE)
+	@cd ./ft_printf/libft/ &&\
+	make clean &&\
+	cd ../../
+	@rm -rf $(OBJS) $(BONUS_OBJS) $(GARBAGE)
 	@echo "$(RED)#Cleaned $(END) $(GARBAGE)"
 
 fclean: clean
+	@cd ./ft_printf/libft/ &&\
+	make fclean &&\
+	cd ../../
 	@rm -rf $(NAME)
+	@rm -rf checker
+	@rm -rf ./ft_printf/libftprintf.a
 	@echo "$(RED)#Cleaned $(END) $(NAME)"
 
-re: fclean
+re: clean fclean
 	@make all
+
+bonus: $(BONUS_OBJS)
+	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
+	@cd ./ft_printf &&\
+	make all clean &&\
+	cd .. &&\
+	cc $(FLAGS) -g $(BONUS_OBJS) -o checker -L ./ft_printf/ -lftprintf
 
 .PHONY: all clean fclean re bonus

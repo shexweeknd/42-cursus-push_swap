@@ -1,5 +1,7 @@
 push_swap
 tester.c
 push_swap_visualizer
+push_swap_tester
 .*
 checker_*
+checker
