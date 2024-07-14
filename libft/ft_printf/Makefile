@@ -32,19 +32,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
-	@cd ./libft && \
-	make fclean bonus && \
-	cp libft.a ../$(NAME) && \
-	rm libft.a && \
-	cd ../
 	@make .c.o
 	@ar rc $(NAME) $(OBJS)
 	@echo "$(GREEN)#Created: $(END) $(NAME)"
 	@ranlib $(NAME)
-
-debug: re
-	@echo "$(GREEN)###$(BLUE) Exec debug rule$(GREEN)###$(END)"
-	@cc $(FLAGS) -g main.c $(SRCS) && ./a.out | cat -e
 
 clean: $(OBJS)
 	@rm -rf $(OBJS) $(GARBAGE)

@@ -14,6 +14,7 @@ SRC = ft_abs.c \
 	ft_isdigit.c \
 	ft_isprint.c \
 	ft_isint.c \
+	ft_isnumber.c \
 	ft_isspace.c \
 	ft_memchr.c \
 	ft_memcmp.c \
@@ -47,6 +48,8 @@ SRC = ft_abs.c \
 	ft_putnbr_fd.c \
 	sort_long_tab.c \
 	get_twodim_size.c \
+	get_next_line.c \
+	get_next_line_utils.c \
 
 BONUS = ft_lstnew_bonus.c \
 	ft_lstadd_front_bonus.c \
@@ -57,7 +60,6 @@ BONUS = ft_lstnew_bonus.c \
 	ft_lstclear_bonus.c \
 	ft_lstiter_bonus.c \
 	ft_lstmap_bonus.c \
-	ft_isnumber.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -67,26 +69,37 @@ MAINSRC = main.c
 
 MAINOBJ = $(MAINSRC:.c=.o)
 
-all: $(NAME)
-
 .c.o:
-	@cc -c -g $(FLAGS) $(SRC) $(BONUS) -I .
+	@cc -c -g $(FLAGS) $(SRC) $(BONUS) -I ./
+
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
-debug: $(SRC) $(MAINSRC)
-	@(cc -g $(SRC) $(MAINSRC) $(FLAGS) && ./a.out)
-
 bonus: $(ALLOBJS)
 	@ar rc $(NAME) $(ALLOBJS)
 	@ranlib $(NAME)
 
+printf:
+	@cd ft_printf &&\
+	make all &&\
+	cd ..
+	@make .c.o
+	@ar -rc $(NAME) $(OBJ) ft_printf/*.o
+	@ranlib $(NAME)
+
 clean:
+	@cd ft_printf &&\
+	make clean &&\
+	cd ..
 	@rm -f $(OBJ) $(ALLOBJS) *.out main.o
 
 fclean: clean
+	@cd ft_printf &&\
+	make fclean &&\
+	cd ..
 	@rm -f $(NAME)
 
 re: fclean all bonus

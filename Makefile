@@ -46,31 +46,30 @@ END = \033[0m
 # Rules
 .c.o:
 	@echo "$(GREEN)###$(BLUE) Exec .c.o rule$(GREEN)###$(END)"
-	@cc -c -g $(SRCS) $(BONUS_SRCS) -I ft_printf -I ft_printf/libft -I ./
+	@cc -c -g $(SRCS) $(BONUS_SRCS) -I libft -I libft/ft_printf -I ./
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
-	@cd ./ft_printf &&\
+	@cd ./libft &&\
 	make all &&\
-	cd .. &&\
-	cc $(FLAGS) -g $(OBJS) -o $(NAME) -L ./ft_printf/ -lftprintf
+	cd ..
+	@cc $(FLAGS) -g $(OBJS) -o $(NAME) -L./libft -lft
 
 clean: $(OBJS)
-	@cd ./ft_printf/libft/ &&\
+	@cd ./libft/ &&\
 	make clean &&\
-	cd ../../
+	cd ../
 	@rm -rf $(OBJS) $(BONUS_OBJS) $(GARBAGE)
 	@echo "$(RED)#Cleaned $(END) $(GARBAGE)"
 
 fclean: clean
-	@cd ./ft_printf/libft/ &&\
+	@cd ./libft/ &&\
 	make fclean &&\
-	cd ../../
+	cd ../
 	@rm -rf $(NAME)
 	@rm -rf checker
-	@rm -rf ./ft_printf/libftprintf.a
 	@echo "$(RED)#Cleaned $(END) $(NAME)"
 
 re: clean fclean
