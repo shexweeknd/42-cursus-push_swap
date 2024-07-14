@@ -6,13 +6,14 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:15:37 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/14 09:46:51 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/14 10:28:05 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include "get_next_line.h"
 # include "libft.h"
 # include <limits.h>
 # include <stddef.h>

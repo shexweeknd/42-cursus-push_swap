@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:07 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 16:16:03 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/14 10:53:43 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ko(t_pile **a, t_pile **b)
 	write(1, "KO\n", 3);
 	free_pile(a);
 	free_pile(b);
-	return (1);
+	return (0);
 }
 
 int	ok(t_pile **a, t_pile **b)
@@ -25,76 +25,55 @@ int	ok(t_pile **a, t_pile **b)
 	write(1, "OK\n", 3);
 	free_pile(a);
 	free_pile(b);
+	return (0);
+}
+
+int	compute_op(char *operation, t_pile **a, t_pile **b)
+{
+	if (!ft_strncmp(operation, "pa\n", 3))
+		pa(a, b);
+	else if (!ft_strncmp(operation, "pb\n", 3))
+		pb(b, a);
+	else if (!ft_strncmp(operation, "sa\n", 3))
+		sa(a);
+	else if (!ft_strncmp(operation, "sb\n", 3))
+		sb(b);
+	else if (!ft_strncmp(operation, "ra\n", 3))
+		ra(a);
+	else if (!ft_strncmp(operation, "rb\n", 3))
+		rb(b);
+	else if (!ft_strncmp(operation, "rra\n", 4))
+		rra(a);
+	else if (!ft_strncmp(operation, "rrb\n", 4))
+		rrb(b);
+	else if (!ft_strncmp(operation, "rr\n", 3))
+		rr(a, b);
+	else if (!ft_strncmp(operation, "rrr\n", 4))
+		rrr(a, b);
+	else
+		return (-1);
 	return (1);
 }
 
-void	checker(t_pile **a)
+int	checker(t_pile **a)
 {
-	char	c;
+	char	*operation;
 	t_pile	**b;
 
 	b = (t_pile **)malloc(sizeof(t_pile *));
 	if (!b)
-		return ;
+		return (1);
 	*b = NULL;
-	while (read(1, &c, 1) > 0)
+	operation = get_next_line(0);
+	while (*operation)
 	{
-		if (c == 'r')
-		{
-			if (read(1, &c, 1) > 0 && (c == 'a' || c == 'b' || c == 'r'))
-			{
-				if (c == 'a')
-					ra(a);
-				else if (c == 'b')
-					rb(b);
-				else if (c == 'r')
-				{
-					if (read(1, &c, 1) > 0 && (c == '\n'))
-						rr(a, b);
-					else if (c == 'r')
-						rrr(a, b);
-					else if (c == 'a')
-						rra(a);
-					else if (c == 'b')
-						rrb(b);
-					else
-						exit(ko(a, b));
-				}
-			}
-			else
-				exit(ko(a, b));
-		}
-		else if (c == 'p')
-		{
-			if (read(1, &c, 1) > 0 && (c == 'a' || c == 'b'))
-			{
-				if (c == 'a')
-					pa(a, b);
-				else if (c == 'b')
-					pb(b, a);
-				else if (read(1, &c, 1) > 0 && (c != '\n'))
-					exit(ko(a, b));
-			}
-			else
-				exit(ko(a, b));
-		}
-		else if (c == 's')
-		{
-			if (read(1, &c, 1) > 0 && (c == 'a' || c == 'b'))
-			{
-				if (c == 'a')
-					sa(a);
-				else if (c == 'b')
-					sb(b);
-				else if (read(1, &c, 1) > 0 && (c != '\n'))
-					exit(ko(a, b));
-			}
-		}
-		else
-			exit(ko(a, b));
+		if (compute_op(operation, a, b) == -1)
+			return (ko(a, b));
+		if (ft_is_sorted(*a))
+			return (ok(a, b));
+		operation = get_next_line(0);
 	}
-	if (ft_is_sorted(*a))
-		exit(ok(a, b));
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -123,5 +102,5 @@ int	main(int argc, char **argv)
 		return (free_pile(a), write(2, "Error\n", 6), 0);
 	if (ft_is_sorted(*a) || (*a == NULL))
 		return (free_pile(a), 0);
-	return (checker(a), 0);
+	return (checker(a));
 }
