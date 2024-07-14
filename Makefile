@@ -76,10 +76,9 @@ re: clean fclean
 	@make all
 
 bonus: $(BONUS_OBJS)
-	@echo "$(GREEN)###$(BLUE) Exec all rule $(GREEN)###$(END)"
-	@cd ./ft_printf &&\
-	make all clean &&\
-	cd .. &&\
-	cc $(FLAGS) -g $(BONUS_OBJS) -o checker -L ./ft_printf/ -lftprintf
+	@cd ./libft &&\
+	make all &&\
+	cd ..
+	@cc $(FLAGS) -g $(BONUS_OBJS) -o checker -L./libft -lft
 
 .PHONY: all clean fclean re bonus
