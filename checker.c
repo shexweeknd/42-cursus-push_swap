@@ -6,7 +6,7 @@
 /*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:07 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/15 13:50:18 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:35:46 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	compute_op(char *operation, t_pile **a, t_pile **b)
 		pseudo_rra(a);
 	else if (!ft_strncmp(operation, "rrb\n", 4))
 		pseudo_rrb(b);
+	else if (!ft_strncmp(operation, "ss\n", 3))
+		pseudo_ss(a, b);
 	else if (!ft_strncmp(operation, "rr\n", 3))
 		pseudo_rr(a, b);
 	else if (!ft_strncmp(operation, "rrr\n", 4))
