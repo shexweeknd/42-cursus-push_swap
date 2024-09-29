@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_i.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42Antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:41:16 by hramaros          #+#    #+#             */
-/*   Updated: 2024/02/29 15:47:49 by hramaros         ###   ########.fr       */
+/*   Created: 2024/02/19 15:00:39 by hramaros          #+#    #+#             */
+/*   Updated: 2024/09/29 14:31:17 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar_i(char c)
+size_t	ft_strlen(const char *str)
 {
-	return (write(1, &c, 1));
+	int	result;
+
+	if (!str)
+		return (0);
+	result = 0;
+	while (str[result])
+		result++;
+	return (result);
 }

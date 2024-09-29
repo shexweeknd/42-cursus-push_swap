@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:06:16 by hramaros          #+#    #+#             */
-/*   Updated: 2024/03/01 09:11:32 by hramaros         ###   ########.fr       */
+/*   Created: 2024/09/29 15:09:31 by hramaros          #+#    #+#             */
+/*   Updated: 2024/09/29 15:09:39 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr(char *str)
+int	ft_putchar(char c)
 {
-	int	printed;
-
-	printed = 0;
-	if (str == (char *)(0))
-		return (write(1, "(null)", 6));
-	while (*str)
-		printed += write(1, str++, 1);
-	return (printed);
+	return (write(1, &c, 1));
 }

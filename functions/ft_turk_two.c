@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_turk_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:34:33 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 16:25:20 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:16:39 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_pile	*get_max_target_from_array(t_pile *pile, long *tab, int array_size)
 {
 	long	max;
-	t_pile	*result;
 
 	max = *tab;
 	if (!array_size)
@@ -38,7 +37,6 @@ t_pile	*get_max_target_from_array(t_pile *pile, long *tab, int array_size)
 t_pile	*get_min_target_from_array(t_pile *pile, long *tab, int array_size)
 {
 	long	min;
-	t_pile	*result;
 
 	min = *tab;
 	if (!array_size)

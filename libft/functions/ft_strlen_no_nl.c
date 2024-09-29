@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strlen_no_nl.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 15:03:18 by hramaros          #+#    #+#             */
-/*   Updated: 2024/05/07 07:16:45 by hramaros         ###   ########.fr       */
+/*   Created: 2024/07/18 10:19:20 by hramaros          #+#    #+#             */
+/*   Updated: 2024/07/18 10:33:23 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+size_t	ft_strlen_no_nl(const char *s)
 {
-	if ((char)c == '\0')
-	{
-		while (*str++)
-			;
-		return ((char *)(--str));
-	}
-	while (*str)
-		if (*str++ == (char)c)
-			return ((char *)(--str));
-	return (0);
+	int	count;
+
+	if (!s || *s == '\n')
+		return (0);
+	count = 0;
+	while (s[count] && s[count] != '\n')
+		count++;
+	return (count);
 }

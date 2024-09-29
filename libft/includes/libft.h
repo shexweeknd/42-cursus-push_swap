@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:20:30 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/15 10:11:48 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:13:55 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include "ft_printf.h"
-# include "get_next_line.h"
+
+# include <fcntl.h>
 # include <limits.h>
+# include <stdarg.h>
 # include <stdint.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <unistd.h>
+
+/*GNL*/
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 /*Bonus*/
 typedef struct s_list
@@ -31,8 +39,11 @@ long				ft_abs(int number);
 int					ft_atoi(const char *str);
 long				ft_atol(const char *str);
 void				ft_bzero(void *s, size_t n);
+int					ft_putchar(char c);
+int					ft_putstr(char *str);
 int					ft_isint(long long nbr);
 int					ft_isalnum(int c);
+int					is_decimal(char *base);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
@@ -51,6 +62,7 @@ char				*ft_strdup(const char *s);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
+size_t				ft_strlen_no_nl(const char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
 char				*ft_strrchr(const char *str, int c);
@@ -89,5 +101,10 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 int					ft_isnumber(const char *str);
 size_t				ft_contentlen(char **list);
 size_t				get_twodim_size(char **splitted);
+char				**ft_str_twodim_dup(char **src);
+int					ft_printf(const char *str, ...);
+char				*get_next_line(int fd);
+int					ft_putnbr_base(int nbr, char *base);
+int					recurse_nbr(long nbr, char *base);
 
 #endif

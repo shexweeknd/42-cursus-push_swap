@@ -5,52 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 09:22:20 by hramaros          #+#    #+#             */
-/*   Updated: 2024/02/29 18:00:10 by hramaros         ###   ########.fr       */
+/*   Created: 2024/09/29 15:07:32 by hramaros          #+#    #+#             */
+/*   Updated: 2024/09/29 15:14:02 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static size_t	ft_isset(const char c, const char *set)
+int	ft_isset(const char *str, char *set)
 {
-	size_t	i;
+	int	index;
 
-	i = 0;
-	while (*(set + i))
+	while (*str)
 	{
-		if (*(set + i) == c)
-			return (1);
-		i++;
+		index = 0;
+		while (set[index])
+		{
+			if (*str == set[index])
+				return (1);
+			index++;
+		}
+		str++;
 	}
 	return (0);
 }
 
-static int	ft_putformat(const char *str, va_list ap)
+int	ft_putx(unsigned int nbr, char *base)
+{
+	int		printed;
+	long	n;
+
+	printed = 0;
+	n = nbr;
+	printed += recurse_nbr(n, base);
+	return (printed);
+}
+
+int	ft_putformat(const char *str, va_list ap)
 {
 	int		printed;
 	char	*set;
 
-	set = "cspdiuxX%";
-	if (!ft_isset(*str, set))
+	set = "csdx%";
+	if (!ft_isset(str, set))
 		return (0);
 	printed = 0;
 	if (*str == 'c')
-		printed += ft_putchar_i(va_arg(ap, int));
+		printed += ft_putchar(va_arg(ap, int));
 	else if (*str == 's')
 		printed += ft_putstr(va_arg(ap, char *));
-	else if (*str == 'p')
-		printed += ft_put_addr(va_arg(ap, void *));
-	else if (*str == 'd' || *str == 'i')
+	else if (*str == 'd')
 		printed += ft_putnbr_base(va_arg(ap, int), "0123456789");
-	else if (*str == 'u')
-		printed += ft_put_unsigned_nbr(va_arg(ap, unsigned int));
 	else if (*str == 'x')
 		printed += ft_putx(va_arg(ap, int), "0123456789abcdef");
 	else if (*str == 'X')
 		printed += ft_putx(va_arg(ap, int), "0123456789ABCDEF");
 	else if (*str == '%')
-		printed += write(1, "%", 1);
+		printed += ft_putchar('%');
 	return (printed);
 }
 
@@ -66,7 +77,7 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 			printed += ft_putformat(++str, ap);
 		else
-			printed += write(1, str, 1);
+			printed += ft_putchar(*str);
 		str++;
 	}
 	va_end(ap);

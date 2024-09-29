@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 07:38:07 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/16 10:35:46 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:17:30 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	checker(t_pile **a)
 int	main(int argc, char **argv)
 {
 	t_pile	**a;
-	t_pile	**b;
 	int		i;
 
 	a = (t_pile **)malloc(sizeof(t_pile *));

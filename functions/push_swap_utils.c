@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:18:28 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/13 14:37:19 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:15:34 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	send_back_to_a(t_pile **a, t_pile **b)
 		while ((*b)->target != *a)
 		{
 			set_index(a);
-			if ((*b)->target->index > (get_pile_size(*a) / 2))
+			if ((*b)->target->index > (int)(get_pile_size(*a) / 2))
 				rra(a);
 			else
 				ra(a);
@@ -84,7 +84,7 @@ void	last_round(t_pile **a, t_pile *min)
 	while (*a != min)
 	{
 		set_index(a);
-		if (min->index > (get_pile_size(*a) / 2))
+		if (min->index > (int)(get_pile_size(*a) / 2))
 			rra(a);
 		else
 			ra(a);

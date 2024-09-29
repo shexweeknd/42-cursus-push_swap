@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   family_utils_one.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hramaros <hramaros@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:05:56 by hramaros          #+#    #+#             */
-/*   Updated: 2024/07/12 16:39:43 by hramaros         ###   ########.fr       */
+/*   Updated: 2024/09/29 23:12:02 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	push_family_to_b(int first_family_id, t_pile **a, t_pile **b)
 {
+	(void)first_family_id;
 	while (get_pile_size(*a) > 3 && is_family_set(*a))
 	{
 		if (get_pile_size(*a) == 4 && (*a)->family != 0)

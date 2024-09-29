@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_unsigned_nbr.c                              :+:      :+:    :+:   */
+/*   ft_isdecimal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hramaros <hramaros@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 12:00:27 by hramaros          #+#    #+#             */
-/*   Updated: 2024/02/29 15:47:44 by hramaros         ###   ########.fr       */
+/*   Created: 2024/09/29 15:11:50 by hramaros          #+#    #+#             */
+/*   Updated: 2024/09/29 15:11:58 by hramaros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_unsigned_nbr(unsigned int nb)
+int	is_decimal(char *base)
 {
-	unsigned int	n;
-	int				printed;
-
-	n = nb;
-	printed = 0;
-	if (n >= 10)
+	while (*base)
 	{
-		printed += ft_putnbr_base(n / 10, "0123456789");
-		n %= 10;
+		if (*base < 48 || *base > 57)
+			return (0);
+		base++;
 	}
-	printed += ft_putchar_i(n + 48);
-	return (printed);
+	return (1);
 }
