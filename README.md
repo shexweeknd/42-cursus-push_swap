@@ -8,7 +8,7 @@ The **Push Swap** project is a sorting algorithm implementation. It takes a stac
 
 ## Algorithm
 
-![algorithm](https://github.com/shexweeknd/blob/blob/main/42-cursus-push_swap/algor-overview.png)
+![algorithm](https://github.com/shexweeknd/blob/blob/main/42-cursus-push_swap/algo-overview.png)
 
 The **Push Swap** can be solved from various algorithms to efficiently sort the stack.
 
