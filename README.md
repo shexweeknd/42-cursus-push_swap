@@ -19,7 +19,7 @@ I saw a bit of them during the 42 Cursus:
 - Chunk Algorithm
 - ...
   
-For my part I decided to use Mechanical Turk combined with Chunk Algorithm.
+For my part I decided to use `Mechanical Turk` combined with `Chunk Algorithm`.
 
 **Mechanical Turk**: for its mechanical simplicity, that completely suits to my brain.
 
